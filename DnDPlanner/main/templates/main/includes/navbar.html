@@ -1,0 +1,25 @@
+<!-- navbar -->
+		<div class="navbar-fixed">
+			<nav class="red z-depth-5">
+				<div class="nav-wrapper">
+					<a href="#!" class="brand-logo">&nbsp;D&D Planner</a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+					<ul class="right hide-on-med-and-down">
+					{% if user.is_authenticated %}
+						<li><a href="sass.html">Sass</a></li>
+						<li><a href="badges.html">Components</a></li>
+					{% else %}
+						<li><a href="collapsible.html">Javascript</a></li>
+						<li><a href="mobile.html">Mobile</a></li>
+					{% endif %}
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<ul class="sidenav" id="mobile-demo">
+			<li><a href="sass.html">Sass</a></li>
+			<li><a href="badges.html">Components</a></li>
+			<li><a href="collapsible.html">Javascript</a></li>
+			<li><a href="mobile.html">Mobile</a></li>
+		</ul>
