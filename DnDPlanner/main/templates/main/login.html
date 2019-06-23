@@ -3,6 +3,15 @@
 {% block style %}
 		<!-- trying to change the color of the input underline -->
 		<style type="text/css">
+			/* label focus color */
+			.input-field input:focus + label {
+			  color: red !important;
+			}
+			/* label underline focus color */
+			.row .input-field input:focus {
+			  border-bottom: 1px solid red !important;
+			  box-shadow: 0 1px 0 0 red !important
+			}
 		</style>
 {% endblock %}
 
@@ -13,11 +22,24 @@
 				<h4 style="color:white" align="center">Login</h4>
 				<form method="POST">
 					{% csrf_token %}
-					{{form.as_p}}
+					<!-- {{form.as_p}} -->
+				{% for field in form %}
+					{% if field.name == 'password' %}
+					<div class="input-field">
+						<label for="id_{{field.name}}" class="mat-label">{{field.label}}</label>
+						<input type="password" class="mat-input" name="{{field.name}}" autofocus required id="id_{{field.name}}" style="color:white;">
+					</div><br>
+					{% else %}
+					<div class="input-field">
+						<label for="id_{{field.name}}" class="mat-label">{{field.label}}</label>
+						<input type="text" class="mat-input" name="{{field.name}}" autofocus required id="id_{{field.name}}" style="color:white;">
+					</div><br>
+					{% endif %}
+				{% endfor %}
 					<div class="row">
 						<div class="col s9 m10 l10"></div>
 						<div class="col s3 m2 l2">
-							<button type="submit" class="btn">button</button>
+							<button type="submit" class="btn red darken-3">button</button>
 						</div>
 					</div>
 				</form>
