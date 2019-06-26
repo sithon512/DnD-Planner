@@ -7,7 +7,7 @@
 						<ul class="right hide-on-med-and-down">
 						{% if user.is_authenticated %}
 							<li><a href="/">Home</a></li>
-							<li><a href="#">{{user.username}}</a></li>
+							<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">{{user.username}}</a></li>
 							<li><a href="#">Quick Initiative Tracker</a></li>
 							<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">Browse My Campaigns</a></li>
 						{% endif %}
@@ -26,7 +26,7 @@
 			<ul class="sidenav" id="mobile-demo">
 			{% if user.is_authenticated %}
 				<li><a href="/">Home</a></li>
-				<li><a href="#">{{user.username}}</a></li>
+				<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">{{user.username}}</a></li>
 				<li><a href="#">Quick Initiative Tracker</a></li>
 				<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">Browse My Campaigns</a></li>
 			{% endif %}
