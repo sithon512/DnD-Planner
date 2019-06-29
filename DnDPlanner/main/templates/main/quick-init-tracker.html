@@ -36,7 +36,7 @@
 						<div class="row">
 							<div class="col s8 m8 l8"></div>
 							<div class="col s4 m4 l4">
-								<button type="submit" class="btn red darken-3">Add Character</button>
+								<button type="submit" class="btn red darken-3" name="add-char">Add Character</button>
 							</div>
 						</div>
 					</form>
@@ -44,7 +44,7 @@
 				<!-- center screen -->
 				<div class="col s12 m6 l6">
 					<h5>Initiative Order:</h5>
-					<ul class="collection">
+					<ul class="collection" style="max-height:520px;overflow:auto;">
 						{% for char in chars %}
 						<li class="init-list collection-item sidenav-trigger" style="background-color:#212121">
 							<div>{{char.initiative_roll}}: {{char.name}}
@@ -62,7 +62,10 @@
 						<button id="next-turn-btn" class="waves-effect waves-light btn red darken-3">next turn</button>
 					</div>
 					<div class="row" align="center">
-						<button class="btn waves-light waves-effect red darken-3" id="clear-init">clear initiative</button>
+						<form method="POST">
+							{% csrf_token %}
+							<button class="btn waves-light waves-effect red darken-3" id="clear-init" name="clear-init">clear initiative</button>
+						</form>
 					</div>	
 					</div>
 				</div>
