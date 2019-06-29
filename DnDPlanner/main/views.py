@@ -48,23 +48,29 @@ def init_tracker(request):
 		init_order = []
 
 	if request.method == 'POST':
-		form = AddToInitTrkrForm(request.POST)
-		if form.is_valid():
-			newChar = Creature(form.cleaned_data.get('character_name'),
-				0, # form.cleaned_data.get('character_hp'),
-				0, # form.cleaned_data.get('character_ac'),
-				form.cleaned_data.get('initiative_roll'),
-			)
+		print(request.POST)
 
-			if newChar.serialize() not in init_order:
-				init_order.append(newChar.serialize())
-				# BOOKMARK: need to sort by initiative_roll
-				init_order = sort_init_order(init_order)
+		if 'add-char' in request.POST:
+			form = AddToInitTrkrForm(request.POST)
+			if form.is_valid():
+				newChar = Creature(form.cleaned_data.get('character_name'),
+					0, # form.cleaned_data.get('character_hp'),
+					0, # form.cleaned_data.get('character_ac'),
+					form.cleaned_data.get('initiative_roll'),
+				)
+
+				if newChar.serialize() not in init_order:
+					init_order.append(newChar.serialize())
+					# BOOKMARK: need to sort by initiative_roll
+					init_order = sort_init_order(init_order)
+				else:
+					messages.error(request, 'That character is already in ' +\
+						'the initiative order.')
 			else:
-				messages.error(request, 'That character is already in the ' +\
-					'initiative order.')
-		else:
-			messages.error(request, 'Invalid input.')
+				messages.error(request, 'Invalid input.')
+
+		if 'clear-init' in request.POST:
+			init_order = []
 
 		# save changes to init order
 		request.session['init_order'] = init_order
