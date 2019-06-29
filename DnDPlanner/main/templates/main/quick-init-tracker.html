@@ -1,0 +1,120 @@
+{% extends 'main/header.html' %}
+
+{% block style %}
+		<!-- trying to change the color of the input underline -->
+		<style type="text/css">
+			/* label focus color */
+			.input-field input:focus + label {
+				color: red !important;
+			}
+			/* label underline focus color */
+			.row .input-field input:focus {
+				border-bottom: 1px solid red !important;
+				box-shadow: 0 1px 0 0 red !important
+			}
+
+			#active-turn {
+				color:#c62828;
+			}
+		</style>
+{% endblock %}
+
+{% block content %}
+		<div style="color:white"> <!-- set default text colour to white -->
+			<div class="row">
+				<!-- left panel -->
+				<div class="col s12 m4 l4">
+					<h4>Add Character to Initiative Order</h4>
+					<form method="POST">
+						{% csrf_token %}
+					{% for field in form %}
+						<div class="input-field">
+							<label for="id_{{field.name}}" class="mat-label">{{field.label}}</label>
+							<input type="text" class="mat-input" name="{{field.name}}" required id="id_{{field.name}}" style="color:white;">
+						</div><br>
+					{% endfor %}
+						<div class="row">
+							<div class="col s8 m8 l8"></div>
+							<div class="col s4 m4 l4">
+								<button type="submit" class="btn red darken-3">Add Character</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- center screen -->
+				<div class="col s12 m6 l6">
+					<h5>Initiative Order:</h5>
+					<ul class="collection">
+						{% for char in chars %}
+						<li class="init-list collection-item sidenav-trigger" style="background-color:#212121">
+							<div>{{char.initiative_roll}}: {{char.name}}
+								<a class="secondary-content"><i class="material-icons" style="color:#c62828;">clear</i></a>
+								<a class="secondary-content"><i class="material-icons" style="color:white;">fullscreen</i></a>
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<!-- right panel -->
+				<div class="col s12 m2 l2">
+					<br>
+					<div class="row" align="center">
+						<button id="next-turn-btn" class="waves-effect waves-light btn red darken-3">next turn</button>
+					</div>
+					<div class="row" align="center">
+						<button class="btn waves-light waves-effect red darken-3" id="clear-init">clear initiative</button>
+					</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+
+{% block javascript %}
+		<script type="text/javascript">
+			var nextTurn = function () {
+				var listElems = $('li.init-list');
+				// var activeIndx = sessionStorage.getItem('currentTurn'); // retrieve curr active from storage
+				var activeIndx = -1;
+				for (var i = 0; i < listElems.length; i++) {
+					// find current active item (if exists)
+					if (listElems[i].id == 'active-turn') { // on find, remember index & break
+						activeIndx = i;
+						break;
+					}
+				}
+				if(activeIndx !== -1) { // don't do on -1 to avoid error
+					listElems[activeIndx].id = ''; // forget old active
+				}
+				// set following elem active
+				listElems[(activeIndx + 1) % listElems.length].id = 'active-turn';
+				// update sessionStorage to new active
+				sessionStorage.setItem('currentTurn', (activeIndx + 1)%listElems.length);
+			};
+
+			var initializeTurn = function () {
+				var currStorage = sessionStorage.getItem('currentTurn');
+				// if the global variable currentTurn isn't initialized, do so
+				if (null === currStorage) {
+					sessionStorage.setItem('currentTurn', -1);
+					currStorage = sessionStorage.getItem('currentTurn');
+				}
+				// if it is initialized and not === -1, set styling
+				if (currStorage >= 0) {
+					var listElems = $('li.init-list');
+					listElems[currStorage].id = 'active-turn';
+				}
+			};
+			initializeTurn(); // run initializeTurn on page load
+
+			$('#next-turn-btn').on('click', function() {
+				nextTurn();
+			});
+
+			$('#clear-init').on('click', function() {
+				// when clearing initiative, set the index of the active turn back to default
+				$('#active-turn').attr('id', '');
+				sessionStorage.setItem('currentTurn', -1);
+			});
+		</script>
+{% endblock %}
