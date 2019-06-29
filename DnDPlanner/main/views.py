@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import AddToInitTrkrForm
-from .private_lib import Creature, sort_init_order
+from .aux_lib import Creature, sort_init_order
 
 # Create your views here.
 def homepage(request):
