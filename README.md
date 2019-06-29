@@ -12,4 +12,4 @@ This web app is a tool that helps Dungeon Masters organize all of the informatio
 1. From the newly created root directory for the server, change directory to `/DnDPlanner/`
 1. From your terminal, run `python manage.py runserver`.
 
-You should now see in your terminal that the server has started and is listening on 127.0.0.1:8000. If you type that address into your web browser of choice, you will be able to see the server running for you.
+You should now see in your terminal that the server has started and is listening on [127.0.0.1:8000](127.0.0.1:8000). If you type that address into your web browser of choice, you will be able to see the server running for you.
