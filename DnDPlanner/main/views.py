@@ -6,6 +6,7 @@ response: http, render (an html template with context), or redirect (calling
 another view).
 """
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.shortcuts import render, redirect
