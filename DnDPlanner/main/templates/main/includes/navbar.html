@@ -2,13 +2,13 @@
 			<div class="navbar-fixed">
 				<nav class="red darken-3 z-depth-5">
 					<div class="nav-wrapper">
-						<a href="/" class="brand-logo">&nbsp;D&D Planner</a>
+						<a href="/" class="brand-logo"><span class="hide-on-small-only">&nbsp;</span>D&D Planner</a>
 						<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 						<ul class="right hide-on-med-and-down">
 						{% if user.is_authenticated %}
 							<li><a href="/">Home</a></li>
 							<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">{{user.username}}</a></li>
-							<li><a href="#">Quick Initiative Tracker</a></li>
+							<li><a href="/init-tracker">Quick Initiative Tracker</a></li>
 							<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">Browse My Campaigns</a></li>
 						{% endif %}
 							<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">Browse Public Campaigns</a></li>
@@ -27,7 +27,7 @@
 			{% if user.is_authenticated %}
 				<li><a href="/">Home</a></li>
 				<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">{{user.username}}</a></li>
-				<li><a href="#">Quick Initiative Tracker</a></li>
+				<li><a href="/init-tracker">Quick Initiative Tracker</a></li>
 				<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">Browse My Campaigns</a></li>
 			{% endif %}
 				<li><a href="#" class="tooltipped" data-position="bottom" data-tooltip="Coming Soon">Browse Public Campaigns</a></li>
