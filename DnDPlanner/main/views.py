@@ -1,17 +1,35 @@
+"""
+Views are the functions responsible for managing the display and logic of the
+html templates. Views must accept 'request' as their first parameter, but
+other parameters can be passed as url logic. Views must return some sort of
+response: http, render (an html template with context), or redirect (calling
+another view).
+"""
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import AddToInitTrkrForm
+from .forms import QuickTrkrForm
 from .aux_lib import Creature, sort_init_order
 
 # Create your views here.
 def homepage(request):
+	"""
+	Renders the main homepage.
+	"""
+
 	return render(	request,
 					'main/homepage.html',
 				)
 
 def login_request(request):
+	"""
+	Renders the login page. When request method is POST, validates login
+	information and authenticates the user.
+	"""
+
+
 	if request.user.is_authenticated:
 		return redirect('main:homepage')
 
@@ -37,11 +55,21 @@ def login_request(request):
 				)
 
 def logout_request(request):
+	"""
+	Handles the user clicking "logout" on the navbar from any page. Always
+	redirects to the homepage to prevent viewing pages behind a login wall.
+	"""
+
 	logout(request)
 	messages.success(request, 'You have been logged out.')
 	return redirect('main:homepage')
 
+@login_required
 def init_tracker(request):
+	"""
+	Handles the quick initiative tracker page.
+	"""
+
 	if 'init_order' in request.session:
 		init_order = request.session['init_order']
 	else:
@@ -51,7 +79,7 @@ def init_tracker(request):
 		print(request.POST)
 
 		if 'add-char' in request.POST:
-			form = AddToInitTrkrForm(request.POST)
+			form = QuickTrkrForm(request.POST)
 			if form.is_valid():
 				newChar = Creature(form.cleaned_data.get('character_name'),
 					0, # form.cleaned_data.get('character_hp'),
@@ -61,7 +89,6 @@ def init_tracker(request):
 
 				if newChar.serialize() not in init_order:
 					init_order.append(newChar.serialize())
-					# BOOKMARK: need to sort by initiative_roll
 					init_order = sort_init_order(init_order)
 				else:
 					messages.error(request, 'That character is already in ' +\
@@ -76,7 +103,7 @@ def init_tracker(request):
 		request.session['init_order'] = init_order
 		return redirect('main:init-tracker')
 
-	form = AddToInitTrkrForm()
+	form = QuickTrkrForm()
 	return render(	request,
 					'main/quick-init-tracker.html',
 					{'form': form,

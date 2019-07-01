@@ -178,6 +178,7 @@ def sort_init_order(char_list):
 	:param char_list: the unsorted initiative order
 	"""
 
+	# lambda function designates sort by 'initiative_roll' key in dict
 	ret_list = sorted(char_list, key=lambda k: k['initiative_roll'], reverse=True)
 
 	# remains for future debugging efforts if needed:

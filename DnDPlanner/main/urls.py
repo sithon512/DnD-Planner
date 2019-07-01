@@ -1,3 +1,10 @@
+"""
+Lists all of the the urls accessible from this app.
+
+Keep the formatting in mind: paths should end with '/' and make sure to
+remember the ',' at the end of the line.
+"""
+
 from django.contrib import admin
 from django.urls import path
 from . import views
