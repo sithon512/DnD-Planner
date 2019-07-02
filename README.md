@@ -25,27 +25,27 @@ You should now see in your terminal that the server has started and is listening
 ### Planned Features:
 * Campaign Planning
 	* Create campaigns
-		* created campaigns act as containers to group together encounters, creatures (including characters), plot beats, and items in order to organize
+		* created campaigns act as containers to group together encounters, creatures (including characters), plot moment, and items in order to organize
 	* Create encounters
 		* created encounters are for planning a meeting of PC's with creatures/NPC's in your world
 		* encounters are created under a campaign
-		* relationships can be created between encounters and creatures, characters, items, locations and/or plot beats
+		* relationships can be created between encounters and creatures, characters, items, locations and/or plot moment
 	* Create custom creatures
 		* creatures are for designing either templates for creating other characters or individual NPC's that can be dropped into encounters
 		* creatures can be created under a campaign or stand alone
-		* relationships can be created between creatures and encounters, items, locations, and/or plot beats
-	* Create plot beats
-		* created plot beats are for reminding dm's of plans that they had for a given location, encounter, creature, or item
-		* plot beats are created under a campaign
-		* relationships can be created between plot beats and encounters, creatures, items, and/or locations
+		* relationships can be created between creatures and encounters, items, locations, and/or plot moment
+	* Create plot moment
+		* created plot moment are for reminding dm's of plans that they had for a given location, encounter, creature, or item
+		* plot moment are created under a campaign
+		* relationships can be created between plot moment and encounters, creatures, items, and/or locations
 	* Create items
 		* created items are simply for organization and keeping track of items that you give your players
 		* items can be created under a campaign or stand alone
-		* relationships can be created between items and plot beats, encounters, creatures, and/or locations
+		* relationships can be created between items and plot moment, encounters, creatures, and/or locations
 	* Create location
 		* created locations are for grouping together other features
 		* locations are created under a campaign 
-		* relationships can be created between locations and encounters, creatures, plot beats, and/or items
+		* relationships can be created between locations and encounters, creatures, plot moment, and/or items
 	* Initiative tracker
 		* like the quick initiative tracker, but encounters can be preloaded with creatures from an encounter
 		* additionally, this will allow you to track individual HP of creatures (and PC's if you'd like), resistances, armor class, and record status text from a combat so that you can read what happened in a combat after the fact and save this to the campaign.
