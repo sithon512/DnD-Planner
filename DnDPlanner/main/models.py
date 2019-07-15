@@ -431,6 +431,17 @@ class Map(models.Model):
 	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
+class CreatureInstance(models.Model):
+	"""
+	Defines instances of creatures. Creature instances are two fields: a foreign key to a creature and TextField which is populated by a json string.
+
+	The json data is in the format of the `Creature` class json serializer (in aux_lib module).
+	"""
+
+	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	json = models.TextField()
+
+
 # mapping tables
 
 
