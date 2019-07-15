@@ -3,3 +3,4 @@
 DnDPlanner/staticfiles/**
 metadata.txt
 **/auxtxt/**
+**/migrations/**
