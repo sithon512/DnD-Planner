@@ -7,7 +7,7 @@ from django.db import models
 
 # model choices
 
-# creature type choices
+# creature type choices (<=4 char)
 PC = 'pc'
 ABERRATION = 'abrr'
 BEAST = 'bst'
@@ -41,7 +41,7 @@ CTYPE_CHOICES = [
 	(UNDEAD, 'Undead'),
 ]
 
-# item type choices
+# item type choices (3 char)
 ARMOR = 'arm'
 POTION = 'ptn'
 RING = 'rng'
@@ -63,7 +63,7 @@ ITYPE_CHOICES = [
 	(WONDEROUS, 'Wonderous'),
 ]
 
-# encounter type choices
+# encounter type choices (<=6 char)
 COMBAT = 'combat'
 PUZZLE = 'puzzle'
 SKILL = 'skill'
@@ -77,7 +77,7 @@ ETYPE_CHOICES = [
 	(TRAVEL, 'Travel'),
 ]
 
-# terrain type choices (for location)
+# terrain type choices (for location) (<=6 char)
 ARCTIC = 'arctic'
 COAST = 'coast'
 DESERT = 'desert'
@@ -97,7 +97,7 @@ TTYPE_CHOICES = [
 	(UNDERDARK, 'Underdark'),
 ]
 
-# proficiency type choices
+# proficiency type choices (4 char)
 EXPERTISE = 'expt'
 PROFICIENCY = 'prof'
 PTYPE_CHOICES = [
@@ -105,7 +105,7 @@ PTYPE_CHOICES = [
 	(PROFICIENCY, 'Proficiency'),
 ]
 
-# ability choices
+# ability choices (3 char)
 STRENGTH = 'str'
 DEXTERITY = 'dex'
 CONSTITUTION = 'con'
@@ -121,7 +121,7 @@ ABILITY_CHOICES = [
 	(CHARISMA, 'Charisma'),
 ]
 
-# tool category
+# tool category (3 char)
 ARTISANS = 'art'
 GAMING = 'gam'
 MUSICAL = 'mus'
@@ -134,7 +134,7 @@ TOOLCAT_CHOICES = [
 ]
 
 
-# weapon property choices
+# weapon property choices (4 char)
 AMMUNITION = 'ammo'
 FINESSE = 'fnse'
 HEAVY = 'hevy'
@@ -163,7 +163,7 @@ WEAPONPROPERTY_CHOICES = [
 ]
 
 
-# creature size options
+# creature size options (3 char)
 TINY = 'tny'
 SMALL = 'sml'
 MEDIUM = 'med'
