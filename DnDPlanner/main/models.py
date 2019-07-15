@@ -179,6 +179,64 @@ CREATURESIZE_CHOICES = [
 	(GARGANTUAN, 'Gargantuan'),
 ]
 
+# resistances options (longest: 25 char)
+	# not used directly in a model, imported to other modules to be
+	# prompted as choices
+	# 
+	# these aren't abbreviated because it will be easier to have them
+	# unabbreviated for populating menus
+SLASHING = 'Slashing'
+BLUDGEONING = 'Bludgeoning'
+PIERCING = 'Piercing'
+NONMAG_PHYSICAL = 'Nonmagical Physical'
+NONMAG_SLASHING = 'Nonmagical Slashing'
+NONMAG_BLUDGEONING = 'Nonmagical Bludgeoning'
+NONMAG_PIERCING = 'Nonmagical Piercing'
+NONSLV_PHYSICAL = 'Nonsilvered Physical'
+NONSLV_SLASHING = 'Nonsilvered Slashing'
+NONSLV_BLUDGEONING = 'Nonsilvered Bludgeoning'
+NONSLV_PIERCING = 'Nonsilvered Piercing'
+NONADM_PHYSICAL = 'Nonadamantium Physical'
+NONADM_SLASHING = 'Nonadamantium Slashing'
+NONADM_BLUDGEONING = 'Nonadamantium Bludgeoning'
+NONADM_PIERCING = 'Nonadamantium Piercing'
+ACID = 'Acid'
+COLD = 'Cold'
+FIRE = 'Fire'
+FORCE = 'Force'
+LIGHTNING = 'Lightning'
+NECROTIC = 'Necrotic'
+POISON = 'Poison'
+PSYCHIC = 'Psychic'
+RADIANT = 'Radiant'
+THUNDER = 'Thunder'
+RESISTANCE_CHOICES = [
+	(SLASHING, SLASHING),
+	(BLUDGEONING, BLUDGEONING),
+	(PIERCING, PIERCING),
+	(NONMAG_PHYSICAL, NONMAG_PHYSICAL),
+	(NONMAG_SLASHING, NONMAG_SLASHING),
+	(NONMAG_BLUDGEONING, NONMAG_BLUDGEONING),
+	(NONMAG_PIERCING, NONMAG_PIERCING),
+	(NONSLV_PHYSICAL, NONSLV_PHYSICAL),
+	(NONSLV_SLASHING, NONSLV_SLASHING),
+	(NONSLV_BLUDGEONING, NONSLV_BLUDGEONING),
+	(NONSLV_PIERCING, NONSLV_PIERCING),
+	(NONADM_PHYSICAL, NONADM_PHYSICAL),
+	(NONADM_SLASHING, NONADM_SLASHING),
+	(NONADM_BLUDGEONING, NONADM_BLUDGEONING),
+	(NONADM_PIERCING, NONADM_PIERCING),
+	(ACID, ACID),
+	(COLD, COLD),
+	(FIRE, FIRE),
+	(FORCE, FORCE),
+	(LIGHTNING, LIGHTNING),
+	(NECROTIC, NECROTIC),
+	(POISON, POISON),
+	(PSYCHIC, PSYCHIC),
+	(RADIANT, RADIANT),
+	(THUNDER, THUNDER),
+]
 
 # standard models
 
@@ -252,6 +310,9 @@ class Creature(models.Model):
 		choices=CTYPE_CHOICES)
 	max_hp = models.PositiveIntegerField(verbose_name='Maximum Hit Points')
 	current_hp = models.PositiveIntegerField(verbose_name='Current Hit Points')
+	resistances = models.TextField()
+		# populated with json string
+		# format: [<resname>, <resname>, ...]
 	size = models.CharField(verbose_name='Size', max_length=3,
 		choices=CREATURESIZE_CHOICES)
 	str_score = models.PositiveIntegerField(verbose_name='Strength Score')
