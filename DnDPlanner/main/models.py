@@ -487,7 +487,7 @@ class CampaignCreature(models.Model):
 	"""
 
 	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
 
 
 class CampaignPlotMoment(models.Model):
@@ -532,7 +532,7 @@ class LocationCreature(models.Model):
 	"""
 
 	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
 
 
 class LocationPlotMoment(models.Model):
@@ -559,7 +559,7 @@ class EncounterCreature(models.Model):
 	"""
 
 	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
 
 
 class EncounterPlotMoment(models.Model):
@@ -577,7 +577,7 @@ class ItemCreature(models.Model):
 	"""
 
 	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
 
 
 class ItemPlotMoment(models.Model):
@@ -594,7 +594,7 @@ class CreaturePlotMoment(models.Model):
 	Relates creatures and plot moments.
 	"""
 
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
 	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
 
 
@@ -640,7 +640,7 @@ class NoteCreature(models.Model):
 	"""
 
 	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
 
 
 class NotePlotMoment(models.Model):
