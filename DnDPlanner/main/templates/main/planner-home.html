@@ -1,0 +1,143 @@
+{% extends 'main/header.html' %}
+
+{% block style %}
+		<!-- sidenav style -->
+		<!-- <style type="text/css">
+			main, footer {
+				padding-left: 300px;
+			}
+
+			@media only screen and (max-width : 992px) {
+				main, footer {
+					padding-left: 0;
+				}
+			}
+			#sidenav {
+				top: 64px;
+			}
+			#sidenav li a {
+				color: #FFFFFF;
+			}
+			#sidenav div.collapsible-body {
+				background-color: #212121;
+			}
+		</style> -->
+		<!-- tab style -->
+		<style type="text/css">
+			.tabs .tab {
+				border-color: #000000;
+				border-style: solid;
+				border-width: .5px;
+				background-color: #C62828;
+			}
+			.tabs .tab a {
+				color:#000000;
+				/*custom text color*/
+			}
+			.tabs .tab a:hover {
+				color:#FFFFFF;
+				background-color: #C62828;
+				/*custom color on hover*/
+			}
+			.tabs .tab a.active {
+				color:#C62828;
+				/*custom text color while active and not selected*/
+				background-color: #000000;
+				/*custom background color while active and not selected*/
+			}
+			.tabs .tab a:focus.active {
+				color:#C62828;
+				/*custom text color while active*/
+				background-color:#000000;
+				/*custom background color while active*/
+			}
+			.tabs .indicator {
+				background-color:#C62828;
+				color:#C62828;
+				/*custom color of indicator*/
+			}
+		</style>
+{% endblock %}
+
+<!-- not currently used, kept for reference, may use later -->
+{% block sidenav %}
+			<!-- <ul id="sidenav" class="sidenav sidenav-fixed grey darken-4">
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordian">
+						<li class="bold">
+							<a class="collapsible-header waves-effect waves-red">Campaigns</a>
+							<div class="collapsible-body">
+								<ul>
+									<li><a href="#" class="waves-effect waves-red">&emsp;campaign_1</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;campaign_2</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;campaign_3</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;campaign_4</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;campaign_5</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordian">
+						<li class="bold">
+							<a class="collapsible-header waves-effect waves-red">Creatures</a>
+							<div class="collapsible-body">
+								<ul>
+									<li><a href="#" class="waves-effect waves-red">&emsp;creature_1</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;creature_2</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;creature_3</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;creature_4</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;creature_5</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordian">
+						<li class="bold">
+							<a class="collapsible-header waves-effect waves-red">Items</a>
+							<div class="collapsible-body">
+								<ul>
+									<li><a href="#" class="waves-effect waves-red">&emsp;item_1</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;item_2</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;item_3</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;item_4</a></li>
+									<li><a href="#" class="waves-effect waves-red">&emsp;item_5</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul> -->
+{% endblock %}
+
+{% block content %}
+			<div class="white-text">
+				<div class="row">
+					<div class="col s12 m1 l1"></div>
+					<div class="col s12 m10 l10">
+						<ul class="tabs">
+							<li class="tab col s4"><a href="#campaign_tab">Campaigns</a></li>
+							<li class="tab col s4"><a href="#creature_tab">Creatures</a></li>
+							<li class="tab col s4"><a href="#item_tab">Items</a></li>
+						</ul>
+					</div>
+					<div id="campaign_tab" class="col s12">
+						
+					</div>
+					<div id="creature_tab" class="col s12">creature tab</div>
+					<div id="item_tab" class="col s12">item tab</div>
+				</div>
+			</div>
+{% endblock %}
+
+{% block javascript %}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.tabs').tabs();
+				// $('#sidenav').sidenav();
+			});
+		</script>
+{% endblock %}
