@@ -28,6 +28,8 @@ def login_request(request):
 	"""
 	Renders the login page. When request method is POST, validates login
 	information and authenticates the user.
+
+	Passes the login form to context.
 	"""
 
 
@@ -69,6 +71,8 @@ def logout_request(request):
 def init_tracker(request):
 	"""
 	Handles the quick initiative tracker page.
+
+	Passes the character addition form and initiative order to context.
 	"""
 
 	if 'init_order' in request.session:
@@ -109,4 +113,13 @@ def init_tracker(request):
 					'main/quick-init-tracker.html',
 					{'form': form,
 					'chars': init_order}
+				)
+
+def planner_home(request):
+	"""
+	Handles displaying the main planner page.
+	"""
+
+	return render(	request,
+					'main/planner-home.html',
 				)
