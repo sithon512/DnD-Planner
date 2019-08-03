@@ -340,6 +340,9 @@ class PlotMoment(models.Model):
 	description = models.TextField(verbose_name='Description')
 	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+	class Meta:
+		verbose_name_plural = 'Plot Moments'
+
 
 class Note(models.Model):
 	"""
@@ -417,7 +420,7 @@ class WeaponProperty(models.Model):
 	wp_type = models.CharField(max_length=4, choices=WEAPONPROPERTY_CHOICES)
 
 	class Meta:
-		verbose_name_plural = 'WeaponProperties'
+		verbose_name_plural = 'Weapon Properties'
 
 
 class Map(models.Model):
