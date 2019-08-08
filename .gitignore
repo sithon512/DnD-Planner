@@ -1,6 +1,6 @@
 **/__pycache__/**
 **/db.sqlite3
 DnDPlanner/staticfiles/**
-metadata.txt
+DnDPlanner/metadata.py
 **/auxtxt/**
 **/migrations/**
