@@ -97,14 +97,6 @@ TTYPE_CHOICES = [
 	(UNDERDARK, 'Underdark'),
 ]
 
-# proficiency type choices (4 char)
-EXPERTISE = 'expt'
-PROFICIENCY = 'prof'
-PTYPE_CHOICES = [
-	(EXPERTISE, 'Expertise'),
-	(PROFICIENCY, 'Proficiency'),
-]
-
 # ability choices (3 char)
 STRENGTH = 'str'
 DEXTERITY = 'dex'
@@ -250,7 +242,11 @@ class Campaign(models.Model):
 
 	title = models.CharField(max_length=50, verbose_name='Campaign Title')
 	description = models.TextField(verbose_name='Description')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'campaign'
+		verbose_name_plural = 'Campaigns'
 
 
 class Location(models.Model):
@@ -263,7 +259,11 @@ class Location(models.Model):
 	terrain_type = models.CharField(max_length=6, verbose_name='Terrain Type',
 		choices=TTYPE_CHOICES, blank=True)
 	description = models.TextField(verbose_name='Description')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'location'
+		verbose_name_plural = 'Locations'
 
 
 class Encounter(models.Model):
@@ -276,7 +276,11 @@ class Encounter(models.Model):
 	encounter_type = models.CharField(verbose_name='Encounter Type',
 		choices=ETYPE_CHOICES, max_length=6, blank=True)
 	description = models.TextField(verbose_name='Description')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'encounter'
+		verbose_name_plural = 'Encounters'
 
 
 class Item(models.Model):
@@ -289,7 +293,11 @@ class Item(models.Model):
 	name = models.CharField(max_length=50, verbose_name='Item Name')
 	item_type = models.CharField(max_length=3, choices=ITYPE_CHOICES)
 	description = models.TextField(verbose_name='Description')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'item'
+		verbose_name_plural = 'Items'
 
 
 class Creature(models.Model):
@@ -323,9 +331,13 @@ class Creature(models.Model):
 	cha_score = models.PositiveIntegerField(verbose_name='Charisma Score')
 	override_prof = models.PositiveIntegerField(verbose_name='Override ' +\
 		'Proficiency Bonus', blank=True,
-		help_text="Leave this blank to use the proficiency associated with " +\
-		"the creature's level.")
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+		help_text="Leave this blank to use the proficiency bonus associated" +\
+			" with the creature's level.")
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'creature'
+		verbose_name_plural = 'Creatures'
 
 
 class PlotMoment(models.Model):
@@ -338,9 +350,10 @@ class PlotMoment(models.Model):
 
 	name = models.CharField(max_length=50, verbose_name='Plot Moment Name')
 	description = models.TextField(verbose_name='Description')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
 
 	class Meta:
+		db_table = 'plot_moment'
 		verbose_name_plural = 'Plot Moments'
 
 
@@ -353,23 +366,11 @@ class Note(models.Model):
 
 	title = models.CharField(max_length=50, verbose_name='Note Title')
 	text = models.TextField(verbose_name='Note Text')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-
-class CreatureSkillProficiency(models.Model):
-	"""
-	Relates skills to creatures. Acts as a mapping table, but isn't pure
-	mapping because it contains additional information (what kind of
-	proficiency).
-	"""
-
-	proficiency_type = models.CharField(verbose_name='Proficiency Type',
-		choices=PTYPE_CHOICES, max_length=4)
-	skill = models.ForeignKey('Skill', on_delete=models.PROTECT)
-	cr_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
 
 	class Meta:
-		verbose_name_plural = 'CreatureSkillProficiencies'
+		db_table = 'note'
+		verbose_name_plural = 'Notes'
 
 
 class Skill(models.Model):
@@ -380,22 +381,11 @@ class Skill(models.Model):
 
 	name = models.CharField(max_length=16)
 	ability = models.CharField(max_length=3, choices=ABILITY_CHOICES)
-
-
-class CreatureToolProficiency(models.Model):
-	"""
-	Relates tools to creatures. Acts as a mapping table, but isn't pure
-	mapping because it contains additional information (what kind of
-	proficiency).
-	"""
-
-	proficiency_type = models.CharField(verbose_name='Proficiency Type',
-		choices=PTYPE_CHOICES, max_length=4)
-	tool = models.ForeignKey('Tool', on_delete=models.PROTECT)
-	cr_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
 
 	class Meta:
-		verbose_name_plural = 'CreatureToolProficiencies'
+		db_table = 'skill'
+		verbose_name_plural = 'Skills'
 
 
 class Tool(models.Model):
@@ -408,6 +398,11 @@ class Tool(models.Model):
 	tool_category = models.CharField(max_length=3, choices=TOOLCAT_CHOICES,
 		blank=True, null=True)
 	description = models.TextField()
+	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'tool'
+		verbose_name_plural = 'Tools'
 
 
 class WeaponProperty(models.Model):
@@ -416,10 +411,13 @@ class WeaponProperty(models.Model):
 	where the selected type is weapon.
 	"""
 
-	wpn_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
-	wp_type = models.CharField(max_length=4, choices=WEAPONPROPERTY_CHOICES)
+	weapon_property_type = models.CharField(max_length=4,
+		choices=WEAPONPROPERTY_CHOICES)
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
+		db_table = 'weapon_property'
 		verbose_name_plural = 'Weapon Properties'
 
 
@@ -428,78 +426,215 @@ class Map(models.Model):
 	Provides an image field in the database for maps to be stored.
 	"""
 
-	map_nme = models.CharField(max_length=30, verbose_name='Map Name')
-	map_img = models.ImageField(upload_to='user_uploads/maps/',
+	name = models.CharField(max_length=30, verbose_name='Map Name')
+	image = models.ImageField(upload_to='user_uploads/maps/',
 		verbose_name='Map Image')
-	ufk = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'map'
+		verbose_name_plural = 'Maps'
 
 
 class CreatureInstance(models.Model):
 	"""
-	Defines instances of creatures. Creature instances are two fields: a foreign key to a creature and TextField which is populated by a json string.
+	Defines instances of creatures. Creature instances are two fields: a
+	foreign key to a creature and TextField which is populated by a json
+	string.
 
-	The json data is in the format of the `Creature` class json serializer (in aux_lib module).
+	The json data is in the format of the `Creature` class json serializer (in
+	aux_lib module).
 	"""
 
-	cre_fk = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	creature_id = models.ForeignKey('Creature', on_delete=models.CASCADE)
 	json = models.TextField()
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
+
+	class Meta:
+		db_table = 'creature_instance'
+		verbose_name_plural = 'Creature Instances'
 
 
 # mapping tables
 
 
-class CampaignMap(models.Model):
+class UserCampaign(models.Model):
 	"""
-	Relates campaigns to maps.
+	Relates users and campaigns.
 	"""
 
-	map_fk = models.ForeignKey('Map', on_delete=models.CASCADE)
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_campaign'
+		verbose_name_plural = 'Users-Campaigns'
+
+
+class UserLocation(models.Model):
+	"""
+	Relates users and locations.
+	"""
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_location'
+		verbose_name_plural = 'Users-Locations'
+
+
+class UserEncounter(models.Model):
+	"""
+	Relates users and encounters.
+	"""
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_encounter'
+		verbose_name_plural = 'Users-Encounters'
+
+
+class UserItem(models.Model):
+	"""
+	Relates users and items.
+	"""
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_item'
+		verbose_name_plural = 'Users-Items'
+
+
+class UserCreature(models.Model):
+	"""
+	Relates users and creatures.
+	"""
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	creature = models.ForeignKey('Creature', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_creature'
+		verbose_name_plural = 'Users-Creatures'
+
+
+class UserNote(models.Model):
+	"""
+	Relates users and notes.
+	"""
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_note'
+		verbose_name_plural = 'Users-Notes'
+
+
+class UserMap(models.Model):
+	"""
+	Relates users and maps.
+	"""
+
+	user = models.ForeignKey(settings.AUTH_USER_MODEL,
+		on_delete=models.CASCADE)
+	map = models.ForeignKey('Map', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'user_map'
+		verbose_name_plural = 'Users-Maps'
+
+
+class CampaignMap(models.Model):
+	"""
+	Relates campaigns and maps.
+	"""
+
+	map = models.ForeignKey('Map', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'campaign_map'
+		verbose_name_plural = 'Campaigns-Maps'
 
 
 class CampaignLocation(models.Model):
 	"""
-	Relates campaigns to locations.
+	Relates campaigns and locations.
 	"""
 
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'campaign_location'
+		verbose_name_plural = 'Campaigns-Locations'
 
 
 class CampaignEncounter(models.Model):
 	"""
-	Relates campaigns to encounters.
+	Relates campaigns and encounters.
 	"""
 
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'campaign_encounters'
+		verbose_name_plural = 'Campaigns-Encounters'
 
 
 class CampaignItem(models.Model):
 	"""
-	Relates campaigns to items.
+	Relates campaigns and items.
 	"""
 
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'campaign_item'
+		verbose_name_plural = 'Campaigns-Items'
 
 
 class CampaignCreature(models.Model):
 	"""
-	Relates campaigns to creatures.
+	Relates campaigns and creatures.
 	"""
 
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	creature_instance = models.ForeignKey('CreatureInstance',
+		on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'campaign_creature'
+		verbose_name_plural = 'Campaigns-Creatures'
 
 
 class CampaignPlotMoment(models.Model):
 	"""
-	Relates campaigns to plot moments.
+	Relates campaigns and plot moments.
 	"""
 
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
-	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	plot_moment = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'campaign_plot_moment'
+		verbose_name_plural = 'Campaigns-Plot Moments'
 
 
 class LocationMap(models.Model):
@@ -507,8 +642,12 @@ class LocationMap(models.Model):
 	Relates locations to maps.
 	"""
 
-	map_fk = models.ForeignKey('Map', on_delete=models.CASCADE)
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
+	map = models.ForeignKey('Map', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'location_map'
+		verbose_name_plural = 'Locations-Maps'
 
 
 class LocationEncounter(models.Model):
@@ -516,8 +655,12 @@ class LocationEncounter(models.Model):
 	Relates locations and encounters.
 	"""
 
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
-	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'location_encounter'
+		verbose_name_plural = 'Locations-Encounters'
 
 
 class LocationItem(models.Model):
@@ -525,8 +668,12 @@ class LocationItem(models.Model):
 	Relates locations and items.
 	"""
 
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
-	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'location_item'
+		verbose_name_plural = 'Locations-Items'
 
 
 class LocationCreature(models.Model):
@@ -534,8 +681,13 @@ class LocationCreature(models.Model):
 	Relates locations and creatures.
 	"""
 
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
-	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+	creature_instance = models.ForeignKey('CreatureInstance',
+		on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'location_creature'
+		verbose_name_plural = 'Locations-Creatures'
 
 
 class LocationPlotMoment(models.Model):
@@ -543,8 +695,12 @@ class LocationPlotMoment(models.Model):
 	Relates locations and plot moments.
 	"""
 
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
-	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+	plot_moment = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'location_plot_moment'
+		verbose_name_plural = 'Locations-Plot Moments'
 
 
 class EncounterItem(models.Model):
@@ -552,8 +708,12 @@ class EncounterItem(models.Model):
 	Relates encounters and items.
 	"""
 
-	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
-	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'encounter_item'
+		verbose_name_plural = 'Encounters-Items'
 
 
 class EncounterCreature(models.Model):
@@ -561,8 +721,13 @@ class EncounterCreature(models.Model):
 	Relates encounters and creatures.
 	"""
 
-	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
-	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+	creature_instance = models.ForeignKey('CreatureInstance',
+		on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'encounter_creature'
+		verbose_name_plural = 'Encounters-Creatures'
 
 
 class EncounterPlotMoment(models.Model):
@@ -570,8 +735,12 @@ class EncounterPlotMoment(models.Model):
 	Relates encounters and plot moments.
 	"""
 
-	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
-	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+	plot_moment = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'encounter_plot_moment'
+		verbose_name_plural = 'Encounters-Plot Moments'
 
 
 class ItemCreature(models.Model):
@@ -579,17 +748,36 @@ class ItemCreature(models.Model):
 	Relates items and creatures.
 	"""
 
-	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
-	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+	creature_instance = models.ForeignKey('CreatureInstance',
+		on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'item_creature'
+		verbose_name_plural = 'Items-Creatures'
 
 
 class ItemPlotMoment(models.Model):
 	"""
-	Relates items plot moments.
+	Relates items and plot moments.
 	"""
 
-	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
-	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+	plot_moment = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'item_plot_moment'
+		verbose_name_plural = 'Items-Plot Moments'
+
+
+class ItemWeaponProperty(models.Model):
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+	weapon_property = models.ForeignKey('WeaponProperty',
+		on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'item_weapon_property'
+		verbose_name_plural = 'Items-Weapon Properties'
 
 
 class CreaturePlotMoment(models.Model):
@@ -597,8 +785,45 @@ class CreaturePlotMoment(models.Model):
 	Relates creatures and plot moments.
 	"""
 
-	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
-	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+	creature_instance = models.ForeignKey('CreatureInstance',
+		on_delete=models.CASCADE)
+	plot_moment = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'creature_plot_moment'
+		verbose_name_plural = 'Creatures-Plot Moments'
+
+
+class CreatureSkillProficiency(models.Model):
+	"""
+	Relates creatures and skills.
+	"""
+
+	is_expertise = models.BooleanField(verbose_name='Expertise')
+	is_jack_of_all_trades = models.BooleanField(verbose_name='Jack of All' +\
+		' Trades')
+	skill = models.ForeignKey('Skill', on_delete=models.PROTECT)
+	creature = models.ForeignKey('Creature', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'creature_skill_proficiency'
+		verbose_name_plural = 'Creatures-Skill Proficiencies'
+
+
+class CreatureToolProficiency(models.Model):
+	"""
+	Relates creatures and tools.
+	"""
+
+	is_expertise = models.BooleanField(verbose_name='Expertise')
+	is_jack_of_all_trades = models.BooleanField(verbose_name='Jack of All' +\
+		' Trades')
+	tool = models.ForeignKey('Tool', on_delete=models.PROTECT)
+	creature = models.ForeignKey('Creature', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'creature_tool_proficiency'
+		verbose_name_plural = 'Creatures-Tool Proficiencies'
 
 
 class NoteCampaign(models.Model):
@@ -606,8 +831,12 @@ class NoteCampaign(models.Model):
 	Relates notes and campaigns.
 	"""
 
-	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	cam_fk = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+	campaign = models.ForeignKey('Campaign', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'note_campaign'
+		verbose_name_plural = 'Notes-Campaigns'
 
 
 class NoteLocation(models.Model):
@@ -615,8 +844,12 @@ class NoteLocation(models.Model):
 	Relates notes and locations.
 	"""
 
-	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	loc_fk = models.ForeignKey('Location', on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+	location = models.ForeignKey('Location', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'note_location'
+		verbose_name_plural = 'Notes-Locations'
 
 
 class NoteEncounter(models.Model):
@@ -624,8 +857,12 @@ class NoteEncounter(models.Model):
 	Relates notes and locations.
 	"""
 
-	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	enc_fk = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+	encounter = models.ForeignKey('Encounter', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'note_encounter'
+		verbose_name_plural = 'Notes-Encounters'
 
 
 class NoteItem(models.Model):
@@ -633,8 +870,12 @@ class NoteItem(models.Model):
 	Relates notes and items.
 	"""
 
-	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	itm_fk = models.ForeignKey('Item', on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+	item = models.ForeignKey('Item', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'note_item'
+		verbose_name_plural = 'Notes-Items'
 
 
 class NoteCreature(models.Model):
@@ -642,8 +883,13 @@ class NoteCreature(models.Model):
 	Relates notes and creatures.
 	"""
 
-	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	cri_fk = models.ForeignKey('CreatureInstance', on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+	creature_instance = models.ForeignKey('CreatureInstance',
+		on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'note_creature'
+		verbose_name_plural = 'Notes-Creatures'
 
 
 class NotePlotMoment(models.Model):
@@ -651,5 +897,9 @@ class NotePlotMoment(models.Model):
 	Relates notes and plot moments.
 	"""
 
-	nte_fk = models.ForeignKey('Note', on_delete=models.CASCADE)
-	plm_fk = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+	note = models.ForeignKey('Note', on_delete=models.CASCADE)
+	plot_moment = models.ForeignKey('PlotMoment', on_delete=models.CASCADE)
+
+	class Meta:
+		db_table = 'note_plot_moment'
+		verbose_name_plural = 'Notes-Plot Moments'
