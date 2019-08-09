@@ -124,11 +124,141 @@
 							<li class="tab col s4"><a href="#item_tab">Items</a></li>
 						</ul>
 					</div>
-					<div id="campaign_tab" class="col s12">
-						
+					<!-- campaign tab -->
+					<div id="campaign_tab" class="col s12 m10 l10 offset-m1 offset-l1">
+						<h4>Recent Campaigns</h4>
+						<hr>
+						<div class="row">
+							{% for campaign in top_campaigns %}
+							<div class="col s12 m6 l3">
+								<div class="card-panel black">
+									<div class="card-content">
+										<span class="card-title" style="color:#C62828"><h4>{{campaign}}</h4></span>
+										<p>This is a card.</p>
+									</div>
+									<div class="card-action">
+										<a href="#" style="color:#616161">View</a>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+
+						<hr>
+
+						<ul class="collapsible">
+							<li>
+								<div class="collapsible-header black"><h4><i class="material-icons" style="font-size: 30px;color:#C62828">add</i>Other Campaigns</h4></div>
+								<div class="collapsible-body">
+									<div class="row">
+										{% for campaign in other_campaigns %}
+										<div class="col s12 m6 l3">
+											<div class="card-panel black">
+												<div class="card-content">
+													<span class="card-title" style="color:#C62828"><h4>{{campaign}}</h4></span>
+													<p>This is a card.</p>
+												</div>
+												<div class="card-action">
+													<a href="#" style="color:#616161">View</a>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</li>
+						</ul>
 					</div>
-					<div id="creature_tab" class="col s12">creature tab</div>
-					<div id="item_tab" class="col s12">item tab</div>
+					<!-- creature tab -->
+					<div id="creature_tab" class="col s12 m10 l10 offset-m1 offset-l1">
+						<h4>Recent Creatures</h4>
+						<hr>
+						<div class="row">
+							{% for creature in top_creatures %}
+							<div class="col s12 m6 l3">
+								<div class="card-panel black">
+									<div class="card-content">
+										<span class="card-title" style="color:#C62828"><h4>{{creature}}</h4></span>
+										<p>This is a card.</p>
+									</div>
+									<div class="card-action">
+										<a href="#" style="color:#616161">View</a>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+
+						<hr>
+
+						<ul class="collapsible">
+							<li>
+								<div class="collapsible-header black"><h4><i class="material-icons" style="font-size: 30px;color:#C62828">add</i>Other Creatures</h4></div>
+								<div class="collapsible-body">
+									<div class="row">
+										{% for creature in other_creatures %}
+										<div class="col s12 m6 l3">
+											<div class="card-panel black">
+												<div class="card-content">
+													<span class="card-title" style="color:#C62828"><h4>{{creature}}</h4></span>
+													<p>This is a card.</p>
+												</div>
+												<div class="card-action">
+													<a href="#" style="color:#616161">View</a>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- item tab -->
+					<div id="item_tab" class="col s12 m10 l10 offset-m1 offset-l1">
+						<h4>Recent Items</h4>
+						<hr>
+						<div class="row">
+							{% for item in top_items %}
+							<div class="col s12 m6 l3">
+								<div class="card-panel black">
+									<div class="card-content">
+										<span class="card-title" style="color:#C62828"><h4>{{item}}</h4></span>
+										<p>This is a card.</p>
+									</div>
+									<div class="card-action">
+										<a href="#" style="color:#616161">View</a>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+
+						<hr>
+
+						<ul class="collapsible">
+							<li>
+								<div class="collapsible-header black"><h4><i class="material-icons" style="font-size: 30px;color:#C62828">add</i>Other Items</h4></div>
+								<div class="collapsible-body">
+									<div class="row">
+										{% for item in other_items %}
+										<div class="col s12 m6 l3">
+											<div class="card-panel black">
+												<div class="card-content">
+													<span class="card-title" style="color:#C62828"><h4>{{item}}</h4></span>
+													<p>This is a card.</p>
+												</div>
+												<div class="card-action">
+													<a href="#" style="color:#616161">View</a>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 {% endblock %}
