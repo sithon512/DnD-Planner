@@ -116,11 +116,22 @@ def init_tracker(request):
 					'chars': init_order}
 				)
 
+@login_required
 def planner_home(request):
 	"""
 	Handles displaying the main planner page.
 	"""
 
+	context = {
+		'top_campaigns': range(4),
+		'other_campaigns': range(12),
+		'top_creatures': range(4),
+		'other_creatures': range(40),
+		'top_items': range(4),
+		'other_items': range(126),
+	}	
+
 	return render(	request,
 					'main/planner-home.html',
+					context
 				)
