@@ -248,6 +248,9 @@ class Campaign(models.Model):
 		db_table = 'campaign'
 		verbose_name_plural = 'Campaigns'
 
+	def __str__(self):
+		return self.title
+
 
 class Location(models.Model):
 	"""
@@ -264,6 +267,9 @@ class Location(models.Model):
 	class Meta:
 		db_table = 'location'
 		verbose_name_plural = 'Locations'
+
+	def __str__(self):
+		return self.name
 
 
 class Encounter(models.Model):
@@ -282,6 +288,9 @@ class Encounter(models.Model):
 		db_table = 'encounter'
 		verbose_name_plural = 'Encounters'
 
+	def __str__(self):
+		return self.name
+
 
 class Item(models.Model):
 	"""
@@ -298,6 +307,9 @@ class Item(models.Model):
 	class Meta:
 		db_table = 'item'
 		verbose_name_plural = 'Items'
+
+	def __str__(self):
+		self.name
 
 
 class Creature(models.Model):
@@ -339,6 +351,9 @@ class Creature(models.Model):
 		db_table = 'creature'
 		verbose_name_plural = 'Creatures'
 
+	def __str__(self):
+		return self.name
+
 
 class PlotMoment(models.Model):
 	"""
@@ -356,6 +371,9 @@ class PlotMoment(models.Model):
 		db_table = 'plot_moment'
 		verbose_name_plural = 'Plot Moments'
 
+	def __str__(self):
+		return self.name
+
 
 class Note(models.Model):
 	"""
@@ -372,6 +390,9 @@ class Note(models.Model):
 		db_table = 'note'
 		verbose_name_plural = 'Notes'
 
+	def __str__(self):
+		return self.title
+
 
 class Skill(models.Model):
 	"""
@@ -386,6 +407,9 @@ class Skill(models.Model):
 	class Meta:
 		db_table = 'skill'
 		verbose_name_plural = 'Skills'
+
+	def __str__(self):
+		return self.name
 
 
 class Tool(models.Model):
@@ -404,6 +428,9 @@ class Tool(models.Model):
 		db_table = 'tool'
 		verbose_name_plural = 'Tools'
 
+	def __str__(self):
+		return self.name
+
 
 class WeaponProperty(models.Model):
 	"""
@@ -420,6 +447,9 @@ class WeaponProperty(models.Model):
 		db_table = 'weapon_property'
 		verbose_name_plural = 'Weapon Properties'
 
+	def __str__(self):
+		return self.weapon_property_type
+
 
 class Map(models.Model):
 	"""
@@ -435,6 +465,9 @@ class Map(models.Model):
 	class Meta:
 		db_table = 'map'
 		verbose_name_plural = 'Maps'
+
+	def __str__(self):
+		return self.name
 
 
 class CreatureInstance(models.Model):
@@ -456,6 +489,9 @@ class CreatureInstance(models.Model):
 		db_table = 'creature_instance'
 		verbose_name_plural = 'Creature Instances'
 
+	def __str__(self):
+		return self.creature_id.name
+
 
 # mapping tables
 
@@ -473,6 +509,9 @@ class UserCampaign(models.Model):
 		db_table = 'user_campaign'
 		verbose_name_plural = 'Users-Campaigns'
 
+	def __str__(self):
+		return self.user.username + ' - ' + self.campaign.title
+
 
 class UserLocation(models.Model):
 	"""
@@ -486,6 +525,9 @@ class UserLocation(models.Model):
 	class Meta:
 		db_table = 'user_location'
 		verbose_name_plural = 'Users-Locations'
+
+	def __str__(self):
+		return self.user.username + ' - ' + self.location.name
 
 
 class UserEncounter(models.Model):
@@ -501,6 +543,9 @@ class UserEncounter(models.Model):
 		db_table = 'user_encounter'
 		verbose_name_plural = 'Users-Encounters'
 
+	def __str__(self):
+		return self.user.username + ' - ' + self.encounter.name
+
 
 class UserItem(models.Model):
 	"""
@@ -514,6 +559,9 @@ class UserItem(models.Model):
 	class Meta:
 		db_table = 'user_item'
 		verbose_name_plural = 'Users-Items'
+
+	def __str__(self):
+		return self.user.username + ' - ' + self.item.name
 
 
 class UserCreature(models.Model):
@@ -529,6 +577,9 @@ class UserCreature(models.Model):
 		db_table = 'user_creature'
 		verbose_name_plural = 'Users-Creatures'
 
+	def __str__(self):
+		return self.user.username + ' - ' + self.creature.name
+
 
 class UserNote(models.Model):
 	"""
@@ -542,6 +593,9 @@ class UserNote(models.Model):
 	class Meta:
 		db_table = 'user_note'
 		verbose_name_plural = 'Users-Notes'
+
+	def __str__(self):
+		return self.user.username + ' - ' + self.note.title
 
 
 class UserMap(models.Model):
@@ -557,6 +611,9 @@ class UserMap(models.Model):
 		db_table = 'user_map'
 		verbose_name_plural = 'Users-Maps'
 
+	def __str__(self):
+		return self.user.username + ' - ' + self.map.name
+
 
 class CampaignMap(models.Model):
 	"""
@@ -569,6 +626,9 @@ class CampaignMap(models.Model):
 	class Meta:
 		db_table = 'campaign_map'
 		verbose_name_plural = 'Campaigns-Maps'
+
+	def __str__(self):
+		return self.map.name + ' - ' + self.campaign.title
 
 
 class CampaignLocation(models.Model):
@@ -583,6 +643,9 @@ class CampaignLocation(models.Model):
 		db_table = 'campaign_location'
 		verbose_name_plural = 'Campaigns-Locations'
 
+	def __str__(self):
+		return self.campaign.title + ' - ' + self.location.name
+
 
 class CampaignEncounter(models.Model):
 	"""
@@ -596,6 +659,9 @@ class CampaignEncounter(models.Model):
 		db_table = 'campaign_encounters'
 		verbose_name_plural = 'Campaigns-Encounters'
 
+	def __str__(self):
+		return self.campaign.title + ' - ' + self.encounter.name
+
 
 class CampaignItem(models.Model):
 	"""
@@ -608,6 +674,9 @@ class CampaignItem(models.Model):
 	class Meta:
 		db_table = 'campaign_item'
 		verbose_name_plural = 'Campaigns-Items'
+
+	def __str__(self):
+		return self.campaign.title + ' - ' + self.item.name
 
 
 class CampaignCreature(models.Model):
@@ -623,6 +692,9 @@ class CampaignCreature(models.Model):
 		db_table = 'campaign_creature'
 		verbose_name_plural = 'Campaigns-Creatures'
 
+	def __str__(self):
+		return self.campaign.title + ' - ' + self.creature_instance.name
+
 
 class CampaignPlotMoment(models.Model):
 	"""
@@ -635,6 +707,9 @@ class CampaignPlotMoment(models.Model):
 	class Meta:
 		db_table = 'campaign_plot_moment'
 		verbose_name_plural = 'Campaigns-Plot Moments'
+
+	def __str__(self):
+		return self.campaign.title + ' - ' + self.plot_moment.name
 
 
 class LocationMap(models.Model):
@@ -649,6 +724,9 @@ class LocationMap(models.Model):
 		db_table = 'location_map'
 		verbose_name_plural = 'Locations-Maps'
 
+	def __str__(self):
+		return self.map.name + ' - ' + self.location.name
+
 
 class LocationEncounter(models.Model):
 	"""
@@ -662,6 +740,9 @@ class LocationEncounter(models.Model):
 		db_table = 'location_encounter'
 		verbose_name_plural = 'Locations-Encounters'
 
+	def __str__(self):
+		return self.location.name + ' - ' + self.encounter.name
+
 
 class LocationItem(models.Model):
 	"""
@@ -674,6 +755,9 @@ class LocationItem(models.Model):
 	class Meta:
 		db_table = 'location_item'
 		verbose_name_plural = 'Locations-Items'
+
+	def __str__(self):
+		return self.location.name + ' - ' + self.item.name
 
 
 class LocationCreature(models.Model):
@@ -689,6 +773,9 @@ class LocationCreature(models.Model):
 		db_table = 'location_creature'
 		verbose_name_plural = 'Locations-Creatures'
 
+	def __str__(self):
+		return self.location.name + ' - ' + self.creature_instance.name
+
 
 class LocationPlotMoment(models.Model):
 	"""
@@ -702,6 +789,9 @@ class LocationPlotMoment(models.Model):
 		db_table = 'location_plot_moment'
 		verbose_name_plural = 'Locations-Plot Moments'
 
+	def __str__(self):
+		return self.location.name + ' - ' + self.plot_moment.name
+
 
 class EncounterItem(models.Model):
 	"""
@@ -714,6 +804,9 @@ class EncounterItem(models.Model):
 	class Meta:
 		db_table = 'encounter_item'
 		verbose_name_plural = 'Encounters-Items'
+
+	def __str__(self):
+		return self.encounter.name + ' - ' + self.item.name
 
 
 class EncounterCreature(models.Model):
@@ -729,6 +822,9 @@ class EncounterCreature(models.Model):
 		db_table = 'encounter_creature'
 		verbose_name_plural = 'Encounters-Creatures'
 
+	def __str__(self):
+		return self.encounter.name + ' - ' + self.creature_instance.name
+
 
 class EncounterPlotMoment(models.Model):
 	"""
@@ -741,6 +837,9 @@ class EncounterPlotMoment(models.Model):
 	class Meta:
 		db_table = 'encounter_plot_moment'
 		verbose_name_plural = 'Encounters-Plot Moments'
+
+	def __str__(self):
+		return self.encounter.name + ' - ' + self.plot_moment.name
 
 
 class ItemCreature(models.Model):
@@ -756,6 +855,9 @@ class ItemCreature(models.Model):
 		db_table = 'item_creature'
 		verbose_name_plural = 'Items-Creatures'
 
+	def __str__(self):
+		return self.item.name + ' - ' + self.creature_instance.name
+
 
 class ItemPlotMoment(models.Model):
 	"""
@@ -769,6 +871,9 @@ class ItemPlotMoment(models.Model):
 		db_table = 'item_plot_moment'
 		verbose_name_plural = 'Items-Plot Moments'
 
+	def __str__(self):
+		return self.item.name + ' - ' + self.plot_moment.name
+
 
 class ItemWeaponProperty(models.Model):
 	item = models.ForeignKey('Item', on_delete=models.CASCADE)
@@ -778,6 +883,10 @@ class ItemWeaponProperty(models.Model):
 	class Meta:
 		db_table = 'item_weapon_property'
 		verbose_name_plural = 'Items-Weapon Properties'
+
+	def __str__(self):
+		return self.item.name + ' - ' +\
+			self.weapon_property.weapon_property_type
 
 
 class CreaturePlotMoment(models.Model):
@@ -792,6 +901,9 @@ class CreaturePlotMoment(models.Model):
 	class Meta:
 		db_table = 'creature_plot_moment'
 		verbose_name_plural = 'Creatures-Plot Moments'
+
+	def __str__(self):
+		return self.creature_instance.name + ' - ' + self.plot_moment.name
 
 
 class CreatureSkillProficiency(models.Model):
@@ -809,6 +921,9 @@ class CreatureSkillProficiency(models.Model):
 		db_table = 'creature_skill_proficiency'
 		verbose_name_plural = 'Creatures-Skill Proficiencies'
 
+	def __str__(self):
+		return self.creature.name + ' - ' + self.skill.name
+
 
 class CreatureToolProficiency(models.Model):
 	"""
@@ -825,6 +940,9 @@ class CreatureToolProficiency(models.Model):
 		db_table = 'creature_tool_proficiency'
 		verbose_name_plural = 'Creatures-Tool Proficiencies'
 
+	def __str__(self):
+		return self.creature.name + ' - ' + self.tool.name
+
 
 class NoteCampaign(models.Model):
 	"""
@@ -837,6 +955,9 @@ class NoteCampaign(models.Model):
 	class Meta:
 		db_table = 'note_campaign'
 		verbose_name_plural = 'Notes-Campaigns'
+
+	def __str__(self):
+		return self.campaign.title + ' - ' + self.note.title
 
 
 class NoteLocation(models.Model):
@@ -851,6 +972,9 @@ class NoteLocation(models.Model):
 		db_table = 'note_location'
 		verbose_name_plural = 'Notes-Locations'
 
+	def __str__(self):
+		return self.locations.name + ' - ' + self.note.title
+
 
 class NoteEncounter(models.Model):
 	"""
@@ -864,6 +988,9 @@ class NoteEncounter(models.Model):
 		db_table = 'note_encounter'
 		verbose_name_plural = 'Notes-Encounters'
 
+	def __str__(self):
+		return self.encounter.name + ' - ' + self.note.title
+
 
 class NoteItem(models.Model):
 	"""
@@ -876,6 +1003,9 @@ class NoteItem(models.Model):
 	class Meta:
 		db_table = 'note_item'
 		verbose_name_plural = 'Notes-Items'
+
+	def __str__(self):
+		return self.item.name + ' - ' + self.note.title
 
 
 class NoteCreature(models.Model):
@@ -891,6 +1021,9 @@ class NoteCreature(models.Model):
 		db_table = 'note_creature'
 		verbose_name_plural = 'Notes-Creatures'
 
+	def __str__(self):
+		return self.creature_instance.name + ' - ' + self.note.title
+
 
 class NotePlotMoment(models.Model):
 	"""
@@ -903,3 +1036,6 @@ class NotePlotMoment(models.Model):
 	class Meta:
 		db_table = 'note_plot_moment'
 		verbose_name_plural = 'Notes-Plot Moments'
+
+	def __str__(self):
+		return self.plot_moment.name + ' - ' + self.note.title
