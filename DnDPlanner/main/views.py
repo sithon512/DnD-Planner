@@ -57,6 +57,7 @@ def login_request(request):
 					{'form': form}
 				)
 
+@login_required
 def logout_request(request):
 	"""
 	Handles the user clicking "logout" on the navbar from any page. Always
