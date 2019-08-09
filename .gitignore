@@ -4,3 +4,5 @@ DnDPlanner/staticfiles/**
 DnDPlanner/metadata.py
 **/auxtxt/**
 **/migrations/**
+**/db.json
+**/new_db.json
