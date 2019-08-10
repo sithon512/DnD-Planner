@@ -1,0 +1,33 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+			<div class="row white-text">
+				<div class="col s12 m8 l8 offset-m2 offset-l2">
+					<h3>{{title}}</h3>
+					<form method="POST">
+						{% csrf_token %}
+
+						<div class="row">
+							<div class="input-field">
+								<input id="campaign-title" type="text" data-length="50" style="color:white">
+								<label for="campaign-title">Campaign Title</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field">
+								<textarea id="campaign-description" class="materialize-textarea" style="color:white"></textarea>
+								<label for="campaign-description">Campaign Description</label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+{% endblock %}
+
+{% block javascript %}
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('input#campaign-title').characterCounter();
+			});
+		</script>
+{% endblock %}
