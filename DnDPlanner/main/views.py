@@ -131,7 +131,27 @@ def planner_home(request):
 		'other_items': range(126),
 	}	
 
-	return render(	request,
-					'main/planner-home.html',
-					context
-				)
+	return render(
+		request,
+		'main/planner-home.html',
+		context
+	)
+
+@login_required
+def create_campaign(request):
+	"""
+	Handles creating a new campaign and adding it to the creating user's
+	account. Also renders the creation view.
+	"""
+
+	page_title = 'Create Campaign'
+	context = {
+		'title': page_title,
+		'return_target': '/planner-home',
+	}
+
+	return render(
+		request,
+		'main/create-campaign.html',
+		context
+	)
