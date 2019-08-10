@@ -11,8 +11,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import QuickTrkrForm
+from django.http import HttpResponse
 from .aux_lib import Creature, sort_init_order
+from .forms import QuickTrkrForm
 
 # Create your views here.
 def homepage(request):
@@ -20,9 +21,10 @@ def homepage(request):
 	Renders the main homepage.
 	"""
 
-	return render(	request,
-					'main/homepage.html',
-				)
+	return render(
+		request,
+		'main/homepage.html',
+	)
 
 def login_request(request):
 	"""
@@ -52,10 +54,11 @@ def login_request(request):
 			messages.error(request, 'Invalid username or password')
 
 	form = AuthenticationForm()
-	return render(	request,
-					'main/login.html',
-					{'form': form}
-				)
+	return render(
+		request,
+		'main/login.html',
+		{'form': form}
+	)
 
 @login_required
 def logout_request(request):
@@ -110,11 +113,15 @@ def init_tracker(request):
 		return redirect('main:init-tracker')
 
 	form = QuickTrkrForm()
-	return render(	request,
-					'main/quick-init-tracker.html',
-					{'form': form,
-					'chars': init_order}
-				)
+	context = {
+		'form': form,
+		'chars': init_order,
+	}
+	return render(
+		request,
+		'main/quick-init-tracker.html',
+		context
+	)
 
 @login_required
 def planner_home(request):
