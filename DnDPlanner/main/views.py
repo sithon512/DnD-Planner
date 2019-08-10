@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .aux_lib import Creature, sort_init_order
 from .forms import QuickTrkrForm
 
@@ -151,14 +151,47 @@ def create_campaign(request):
 	account. Also renders the creation view.
 	"""
 
-	page_title = 'Create Campaign'
-	context = {
-		'title': page_title,
-		'return_target': '/planner-home',
-	}
-
 	return render(
 		request,
 		'main/create-campaign.html',
-		context
 	)
+
+
+# ajax views
+
+
+def ajax_remove_from_init_tracker(request):
+	"""
+
+	"""
+
+	target = request.GET.get('target').strip()
+	tokens = target.split(' ')
+	tokens.pop(0)
+	target = ''
+	for token in tokens:
+		if target != '':
+			target += ' ' + token
+		else:
+			target += token
+
+	# print(f'target: "{target}"')
+	found = False
+
+	init_order = request.session['init_order']
+	for char in init_order:
+		# print(f'Current Name: \"{char["name"]}\"')
+		if char['name'] == target:
+			# print(f'found: {char["name"]}')
+			found = True
+			break
+
+	if found:
+		# print(char)
+		# print()
+		init_order.remove(char)
+		# print(init_order)
+
+	request.session['init_order'] = init_order
+
+	return JsonResponse({})

@@ -20,57 +20,56 @@
 {% endblock %}
 
 {% block content %}
-		<div style="color:white"> <!-- set default text colour to white -->
-			<div class="row">
-				<!-- left panel -->
-				<div class="col s12 m4 l4">
-					<h4>Add Character to Initiative Order</h4>
-					<form method="POST">
-						{% csrf_token %}
-					{% for field in form %}
-						<div class="input-field">
-							<label for="id_{{field.name}}" class="mat-label">{{field.label}}</label>
-							<input type="text" class="mat-input" name="{{field.name}}" required id="id_{{field.name}}" style="color:white;">
-						</div><br>
-					{% endfor %}
-						<div class="row">
-							<div class="col s8 m8 l8"></div>
-							<div class="col s4 m4 l4">
-								<button type="submit" class="btn red darken-3" name="add-char">Add Character</button>
-							</div>
-						</div>
-					</form>
-				</div>
-				<!-- center screen -->
-				<div class="col s12 m6 l6">
-					<h5>Initiative Order:</h5>
-					<ul class="collection" style="max-height:520px;overflow:auto;">
-						{% for char in chars %}
-						<li class="init-list collection-item sidenav-trigger" style="background-color:#212121">
-							<div>{{char.initiative_roll}}: {{char.name}}
-								<a class="secondary-content"><i class="material-icons" style="color:#c62828;">clear</i></a>
-								<a class="secondary-content"><i class="material-icons" style="color:white;">fullscreen</i></a>
-							</div>
-						</li>
-						{% endfor %}
-					</ul>
-				</div>
-				<!-- right panel -->
-				<div class="col s12 m2 l2">
-					<br>
-					<div class="row" align="center">
-						<button id="next-turn-btn" class="waves-effect waves-light btn red darken-3">next turn</button>
-					</div>
-					<div class="row" align="center">
+			<div style="color:white"> <!-- set default text colour to white -->
+				<div class="row">
+					<!-- left panel -->
+					<div class="col s12 m4 l4">
+						<h4>Add Character to Initiative Order</h4>
 						<form method="POST">
 							{% csrf_token %}
-							<button class="btn waves-light waves-effect red darken-3" id="clear-init" name="clear-init">clear initiative</button>
+						{% for field in form %}
+							<div class="input-field">
+								<label for="id_{{field.name}}" class="mat-label">{{field.label}}</label>
+								<input type="text" class="mat-input" name="{{field.name}}" required id="id_{{field.name}}" style="color:white;">
+							</div><br>
+						{% endfor %}
+							<div class="row">
+								<div class="col s8 m8 l8"></div>
+								<div class="col s4 m4 l4">
+									<button type="submit" class="btn red darken-3" name="add-char">Add<span class="hide-on-med-and-down"> Character</span></button>
+								</div>
+							</div>
 						</form>
-					</div>	
+					</div>
+					<!-- center screen -->
+					<div class="col s12 m6 l6">
+						<h5>Initiative Order:</h5>
+						<ul class="collection" style="max-height:520px;overflow:auto;">
+							{% for char in chars %}
+							<li class="init-list collection-item sidenav-trigger" style="background-color:#212121">
+								<div>{{char.initiative_roll}}: {{char.name}}
+									<a class="secondary-content"><i id="{{char.name}}_clear" class="material-icons" style="color:#c62828;">clear</i></a>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- right panel -->
+					<div class="col s12 m2 l2">
+						<br>
+						<div class="row" align="center">
+							<button id="next-turn-btn" class="waves-effect waves-light btn red darken-3">next turn</button>
+						</div>
+						<div class="row" align="center">
+							<form method="POST">
+								{% csrf_token %}
+								<button class="btn waves-light waves-effect red darken-3" id="clear-init" name="clear-init">clear initiative</button>
+							</form>
+						</div>	
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 {% endblock %}
 
 {% block javascript %}
@@ -118,6 +117,22 @@
 				// when clearing initiative, set the index of the active turn back to default
 				$('#active-turn').attr('id', '');
 				sessionStorage.setItem('currentTurn', -1);
+			});
+
+			// enable the remove buttons on each character
+			$characters = $('ul li div a i.material-icons');
+			$characters.click(function() {
+				$.ajax({
+					url: '/ajax/rem-char',
+					data: {
+						'target': $(this).parent().parent().clone().children().remove().end().text(),
+					},
+					datatype: 'json',
+					success: function(data) {
+						console.log('success')
+					}
+				});
+				$(this).parent().parent().parent().remove();
 			});
 		</script>
 {% endblock %}
