@@ -126,7 +126,15 @@
 					</div>
 					<!-- campaign tab -->
 					<div id="campaign_tab" class="col s12 m10 l10 offset-m1 offset-l1">
-						<h4>Recent Campaigns</h4>
+						<div class="row">
+							<div class="col s8 m6 l6">
+								<h4>Recent Campaigns</h4>
+							</div>
+							<div class="col s4 m6 l6" align="right">
+								<br>
+								<a href="new-campaign/"><button class="btn black waves-red waves-effect"><span style="color:#C62828">Create New</span></button></a>
+							</div>
+						</div>
 						<hr>
 						<div class="row">
 							{% for campaign in top_campaigns %}
@@ -171,7 +179,15 @@
 					</div>
 					<!-- creature tab -->
 					<div id="creature_tab" class="col s12 m10 l10 offset-m1 offset-l1">
-						<h4>Recent Creatures</h4>
+						<div class="row">
+							<div class="col s8 m6 l6">
+								<h4>Recent Creatures</h4>
+							</div>
+							<div class="col s4 m6 l6" align="right">
+								<br>
+								<button class="btn black waves-red waves-effect"><span style="color:#C62828">Create New</span></button>
+							</div>
+						</div>
 						<hr>
 						<div class="row">
 							{% for creature in top_creatures %}
@@ -216,7 +232,15 @@
 					</div>
 					<!-- item tab -->
 					<div id="item_tab" class="col s12 m10 l10 offset-m1 offset-l1">
-						<h4>Recent Items</h4>
+						<div class="row">
+							<div class="col s8 m6 l6">
+								<h4>Recent Items</h4>
+							</div>
+							<div class="col s4 m6 l6" align="right">
+								<br>
+								<button class="btn black waves-red waves-effect"><span style="color:#C62828">Create New</span></button>
+							</div>
+						</div>
 						<hr>
 						<div class="row">
 							{% for item in top_items %}
