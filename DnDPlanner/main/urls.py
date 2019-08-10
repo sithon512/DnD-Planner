@@ -17,4 +17,6 @@ urlpatterns = [
 	path('login/', views.login_request, name='login'),
 	path('init-tracker/', views.init_tracker, name='init-tracker'),
 	path('planner-home/', views.planner_home, name='planner-home'),
+	path('planner-home/new-campaign/', views.create_campaign,
+		name='create-campaign'),
 ]
