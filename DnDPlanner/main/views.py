@@ -129,6 +129,12 @@ def planner_home(request):
 	"""
 	Handles displaying the main planner page.
 	"""
+	
+	user_campaigns = sorted([cam.campaign for cam in UserCampaign.objects.filter(user=request.user)], lambda x: x.last_updated)
+	top_campaigns = user_campaigns[:4]
+	print(top_campaigns)
+	other_campaigns = user_campaigns[4:]
+	print(other_campaigns)
 
 	context = {
 		'top_campaigns': range(4),
