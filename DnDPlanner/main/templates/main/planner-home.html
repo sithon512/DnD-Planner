@@ -137,15 +137,15 @@
 						</div>
 						<hr>
 						<div class="row">
-							{% for campaign in top_campaigns %}
+							{% for name, slug, desc in top_campaigns %}
 							<div class="col s12 m6 l3">
-								<div class="card-panel black">
+								<div class="card black small">
 									<div class="card-content">
-										<span class="card-title" style="color:#C62828"><h4>{{campaign}}</h4></span>
-										<p>This is a card.</p>
+										<span class="card-title" style="color:#C62828"><h4>{{name}}</h4></span>
+										<p>{{desc}}</p>
 									</div>
 									<div class="card-action">
-										<a href="#" style="color:#616161">View</a>
+										<a href="{{slug}}" style="color:#616161">View</a>
 									</div>
 								</div>
 							</div>
@@ -159,19 +159,23 @@
 								<div class="collapsible-header black"><h4><i class="material-icons" style="font-size: 30px;color:#C62828">add</i>Other Campaigns</h4></div>
 								<div class="collapsible-body">
 									<div class="row">
-										{% for campaign in other_campaigns %}
+										{% if other_campaigns|length == 0 %}
+										<h6 align="center">No other campaigns</h6>
+										{% else %}
+										{% for name, slug, desc in other_campaigns %}
 										<div class="col s12 m6 l3">
-											<div class="card-panel black">
+											<div class="card black small">
 												<div class="card-content">
-													<span class="card-title" style="color:#C62828"><h4>{{campaign}}</h4></span>
-													<p>This is a card.</p>
+													<span class="card-title" style="color:#C62828"><h4>{{name}}</h4></span>
+													<p>{{desc}}</p>
 												</div>
 												<div class="card-action">
-													<a href="#" style="color:#616161">View</a>
+													<a href="{{slug}}" style="color:#616161">View</a>
 												</div>
 											</div>
 										</div>
 										{% endfor %}
+										{% endif %}
 									</div>
 								</div>
 							</li>
