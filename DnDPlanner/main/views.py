@@ -11,6 +11,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from urllib.parse import quote as to_url
 from django.http import HttpResponse, JsonResponse
 from .aux_lib import Creature, sort_init_order
 from .forms import QuickTrkrForm
@@ -129,16 +130,40 @@ def planner_home(request):
 	"""
 	Handles displaying the main planner page.
 	"""
+
+	def build_campaign_context(campaign_list):
+		"""
+		Converts the given list of campaigns into a list of tuples to be
+		passed to context. Refactored due to repitition.
+		"""
+
+		campaign_list = [(c.title, to_url(c.title), c.description)
+			if len(c.description) < 150
+			else (c.title, to_url(c.title), c.description[:147] + '...')
+			for c in campaign_list]
+		return [(c[0], c[1], c[2])
+			if len(c[0]) < 40
+			else (c[0][:37] + '...', c[1], c[2])
+			for c in campaign_list]
 	
-	user_campaigns = sorted([cam.campaign for cam in UserCampaign.objects.filter(user=request.user)], lambda x: x.last_updated)
+	# get the user's campaigns
+	user_campaigns = [cam.campaign for cam in
+		UserCampaign.objects.filter(user=request.user).order_by(
+		'-campaign__last_updated')]
+	# split campaigns into most frequently used and least
 	top_campaigns = user_campaigns[:4]
-	print(top_campaigns)
 	other_campaigns = user_campaigns[4:]
-	print(other_campaigns)
+
+	top_campaigns = build_campaign_context(top_campaigns)
+	other_campaigns = build_campaign_context(other_campaigns)
+
+	# get the user's creatures
+
+	# get the user's items
 
 	context = {
-		'top_campaigns': range(4),
-		'other_campaigns': range(12),
+		'top_campaigns': top_campaigns,
+		'other_campaigns': other_campaigns,
 		'top_creatures': range(4),
 		'other_creatures': range(40),
 		'top_items': range(4),
