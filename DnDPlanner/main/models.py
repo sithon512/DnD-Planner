@@ -242,7 +242,8 @@ class Campaign(models.Model):
 
 	title = models.CharField(max_length=50, verbose_name='Campaign Title')
 	description = models.TextField(verbose_name='Description')
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'campaign'
@@ -262,7 +263,8 @@ class Location(models.Model):
 	terrain_type = models.CharField(max_length=6, verbose_name='Terrain Type',
 		choices=TTYPE_CHOICES, blank=True)
 	description = models.TextField(verbose_name='Description')
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'location'
@@ -282,7 +284,8 @@ class Encounter(models.Model):
 	encounter_type = models.CharField(verbose_name='Encounter Type',
 		choices=ETYPE_CHOICES, max_length=6, blank=True)
 	description = models.TextField(verbose_name='Description')
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'encounter'
@@ -302,7 +305,8 @@ class Item(models.Model):
 	name = models.CharField(max_length=50, verbose_name='Item Name')
 	item_type = models.CharField(max_length=3, choices=ITYPE_CHOICES)
 	description = models.TextField(verbose_name='Description')
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'item'
@@ -345,7 +349,8 @@ class Creature(models.Model):
 		'Proficiency Bonus', blank=True,
 		help_text="Leave this blank to use the proficiency bonus associated" +\
 			" with the creature's level.")
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'creature'
@@ -365,7 +370,8 @@ class PlotMoment(models.Model):
 
 	name = models.CharField(max_length=50, verbose_name='Plot Moment Name')
 	description = models.TextField(verbose_name='Description')
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'plot_moment'
@@ -384,7 +390,8 @@ class Note(models.Model):
 
 	title = models.CharField(max_length=50, verbose_name='Note Title')
 	text = models.TextField(verbose_name='Note Text')
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'note'
@@ -402,7 +409,8 @@ class Skill(models.Model):
 
 	name = models.CharField(max_length=16)
 	ability = models.CharField(max_length=3, choices=ABILITY_CHOICES)
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'skill'
@@ -422,7 +430,8 @@ class Tool(models.Model):
 	tool_category = models.CharField(max_length=3, choices=TOOLCAT_CHOICES,
 		blank=True, null=True)
 	description = models.TextField()
-	last_updated = models.DateTimeField(auto_now=True, verbose_name='Last Updated')
+	last_updated = models.DateTimeField(auto_now=True,
+		verbose_name='Last Updated')
 
 	class Meta:
 		db_table = 'tool'
