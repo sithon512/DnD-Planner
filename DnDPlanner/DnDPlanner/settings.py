@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = metadata.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = metadata.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = metadata.ALLOWED_HOSTS
 
 
 # Application definition
