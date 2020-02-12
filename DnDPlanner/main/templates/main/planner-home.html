@@ -136,6 +136,7 @@
 							</div>
 						</div>
 						<hr>
+						{% if top_campaigns|length > 0 %}
 						<div class="row">
 							{% for name, slug, desc in top_campaigns %}
 							<div class="col s12 m6 l3">
@@ -145,13 +146,14 @@
 										<p>{{desc}}</p>
 									</div>
 									<div class="card-action">
-										<a href="{{slug}}" style="color:#616161">View</a>
+										<a href="/view-campaign/{{slug}}" style="color:#616161">View</a>
 									</div>
 								</div>
 							</div>
 							{% endfor %}
 						</div>
 
+						{% if other_campaigns|length > 0 %}
 						<hr>
 
 						<ul class="collapsible">
@@ -170,7 +172,7 @@
 													<p>{{desc}}</p>
 												</div>
 												<div class="card-action">
-													<a href="{{slug}}" style="color:#616161">View</a>
+													<a href="/view-campaign/{{slug}}" style="color:#616161">View</a>
 												</div>
 											</div>
 										</div>
@@ -180,6 +182,12 @@
 								</div>
 							</li>
 						</ul>
+						{% endif %}
+						{% else %}
+						<div style="height:20vh" class="valign-wrapper">
+							<h5 align="center" style="width:100%;color:#404040">No campaigns to show.</h5>
+						</div>
+						{% endif %}
 					</div>
 					<!-- creature tab -->
 					<div id="creature_tab" class="col s12 m10 l10 offset-m1 offset-l1">
@@ -193,22 +201,24 @@
 							</div>
 						</div>
 						<hr>
+						{% if top_creatures|length > 0 %}
 						<div class="row">
-							{% for creature in top_creatures %}
+							{% for name, slug, desc in top_creatures %}
 							<div class="col s12 m6 l3">
 								<div class="card-panel black">
 									<div class="card-content">
-										<span class="card-title" style="color:#C62828"><h4>{{creature}}</h4></span>
-										<p>This is a card.</p>
+										<span class="card-title" style="color:#C62828"><h4>{{name}}</h4></span>
+										<p>{{desc}}</p>
 									</div>
 									<div class="card-action">
-										<a href="#" style="color:#616161">View</a>
+										<a href="/view-creature/{{slug}}" style="color:#616161">View</a>
 									</div>
 								</div>
 							</div>
 							{% endfor %}
 						</div>
 
+						{% if other_creatures|length > 0 %}
 						<hr>
 
 						<ul class="collapsible">
@@ -216,15 +226,15 @@
 								<div class="collapsible-header black"><h4><i class="material-icons" style="font-size: 30px;color:#C62828">add</i>Other Creatures</h4></div>
 								<div class="collapsible-body">
 									<div class="row">
-										{% for creature in other_creatures %}
+										{% for name, slug, desc in other_creatures %}
 										<div class="col s12 m6 l3">
 											<div class="card-panel black">
 												<div class="card-content">
-													<span class="card-title" style="color:#C62828"><h4>{{creature}}</h4></span>
-													<p>This is a card.</p>
+													<span class="card-title" style="color:#C62828"><h4>{{name}}</h4></span>
+													<p>{{desc}}</p>
 												</div>
 												<div class="card-action">
-													<a href="#" style="color:#616161">View</a>
+													<a href="/view-creature/{{slug}}" style="color:#616161">View</a>
 												</div>
 											</div>
 										</div>
@@ -233,6 +243,12 @@
 								</div>
 							</li>
 						</ul>
+						{% endif %}
+						{% else %}
+						<div style="height:20vh" class="valign-wrapper">
+							<h5 align="center" style="width:100%;color:#404040">No creatures to show.</h5>
+						</div>
+						{% endif %}
 					</div>
 					<!-- item tab -->
 					<div id="item_tab" class="col s12 m10 l10 offset-m1 offset-l1">
@@ -246,22 +262,24 @@
 							</div>
 						</div>
 						<hr>
+						{% if top_items|length > 0 %}
 						<div class="row">
-							{% for item in top_items %}
+							{% for name, slug, desc in top_items %}
 							<div class="col s12 m6 l3">
 								<div class="card-panel black">
 									<div class="card-content">
-										<span class="card-title" style="color:#C62828"><h4>{{item}}</h4></span>
-										<p>This is a card.</p>
+										<span class="card-title" style="color:#C62828"><h4>{{name}}</h4></span>
+										<p>{{desc}}</p>
 									</div>
 									<div class="card-action">
-										<a href="#" style="color:#616161">View</a>
+										<a href="{{/view-item/{{slug}}" style="color:#616161">View</a>
 									</div>
 								</div>
 							</div>
 							{% endfor %}
 						</div>
 
+						{% if other_items|length > 0 %}
 						<hr>
 
 						<ul class="collapsible">
@@ -269,15 +287,15 @@
 								<div class="collapsible-header black"><h4><i class="material-icons" style="font-size: 30px;color:#C62828">add</i>Other Items</h4></div>
 								<div class="collapsible-body">
 									<div class="row">
-										{% for item in other_items %}
+										{% for name, slug, desc in other_items %}
 										<div class="col s12 m6 l3">
 											<div class="card-panel black">
 												<div class="card-content">
-													<span class="card-title" style="color:#C62828"><h4>{{item}}</h4></span>
-													<p>This is a card.</p>
+													<span class="card-title" style="color:#C62828"><h4>{{name}}</h4></span>
+													<p>{{desc}}</p>
 												</div>
 												<div class="card-action">
-													<a href="#" style="color:#616161">View</a>
+													<a href="/view-item/{{slug}}" style="color:#616161">View</a>
 												</div>
 											</div>
 										</div>
@@ -286,6 +304,12 @@
 								</div>
 							</li>
 						</ul>
+						{% endif %}
+						{% else %}
+						<div style="height:20vh" class="valign-wrapper">
+							<h5 align="center" style="width:100%;color:#404040">No items to show.</h5>
+						</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>
