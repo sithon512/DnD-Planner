@@ -145,16 +145,52 @@ def planner_home(request):
 		campaign_list = [(c.title, to_url(c.title), c.description)
 			if len(c.description) < 150
 			else (c.title, to_url(c.title), c.description[:147] + '...')
-			for c in campaign_list]
+			for c in campaign_list
+		]
 		return [(c[0], c[1], c[2])
 			if len(c[0]) < 40
 			else (c[0][:37] + '...', c[1], c[2])
-			for c in campaign_list]
-	
+			for c in campaign_list
+		]
+
+	def build_creature_context(creature_list):
+		"""
+		Converts the given list of creatures into a list of tuples to pass to
+		context.
+		"""
+
+		creature_list = [(c.name, to_url(c.name), c.description)
+			if len(c.description) < 150
+			else (c.name, to_url(c.name), c.description[:147] + '...')
+			for c in creature_list
+		]
+		return [(c[0], c[1], c[2])
+			if len(c[0]) < 40
+			else (c[0][:37] + '...', c[1], c[2])
+			for c in creature_list
+		]
+
+	def build_item_context(item_list):
+		"""
+		Converts the given list of creatures into a list of tuples to pass to
+		context.
+		"""
+
+		item_list = [(i.name, to_url(i.name), i.description)
+			if len(i.description) < 150
+			else (i.name, to_url(i.name), i.description[:147] + '...')
+			for i in item_list
+		]
+		return [(i[0], i[1], i[2])
+			if len(i[0]) < 40
+			else (i[0][:37] + '...', i[1], i[2])
+			for i in item_list
+		]
+
 	# get the user's campaigns
-	user_campaigns = [cam.campaign for cam in
-		UserCampaign.objects.filter(user=request.user).order_by(
-		'-campaign__last_updated')]
+	user_campaigns = [cam.campaign
+		for cam in UserCampaign.objects.filter(user=request.user)\
+			.order_by('-campaign__last_updated')]
 	# split campaigns into most frequently used and least
 	top_campaigns = user_campaigns[:4]
 	other_campaigns = user_campaigns[4:]
@@ -163,16 +199,34 @@ def planner_home(request):
 	other_campaigns = build_campaign_context(other_campaigns)
 
 	# get the user's creatures
+	user_creatures = [cre.creature
+		for cre in UserCreature.objects.filter(user=request.user)\
+			.order_by('-creature__last_updated')]
+	# split creatures into most frequent and less frequent
+	top_creatures = user_creatures[:4]
+	other_creatures = user_creatures[4:]
+
+	top_creatures = build_creature_context(top_creatures)
+	other_creatures = build_creature_context(other_creatures)
 
 	# get the user's items
+	user_items = [item.item
+		for item in UserItem.objects.filter(user=request.user)\
+			.order_by('-item__last_updated')]
+	# split items into most frequent and less frequent
+	top_items = user_items[:4]
+	other_items = user_items[4:]
+
+	top_items = build_item_context(top_items)
+	other_items = build_item_context(other_items)
 
 	context = {
 		'top_campaigns': top_campaigns,
 		'other_campaigns': other_campaigns,
-		'top_creatures': range(4),
-		'other_creatures': range(40),
-		'top_items': range(4),
-		'other_items': range(126),
+		'top_creatures': top_creatures,
+		'other_creatures': other_creatures,
+		'top_items': top_items,
+		'other_items': other_items,
 	}	
 
 	return render(
