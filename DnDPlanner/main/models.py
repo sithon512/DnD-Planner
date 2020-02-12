@@ -326,17 +326,17 @@ class Creature(models.Model):
 	name = models.CharField(max_length=50, verbose_name='Creature Name')
 	description = models.TextField(verbose_name='Description')
 	level = models.PositiveIntegerField(verbose_name='Level',
-		help_text="This may be a creature's challenge rating, a player " +\
-		"character's level, a number of hit die, or whatever else is being " +\
-		"used to track a creature's agency in the world")
+		help_text=("This may be a creature's challenge rating, a player "
+			"character's level, a number of hit die, or whatever else is being"
+			" used to track a creature's agency in the world"))
 	creature_type = models.CharField(max_length=6,
 		verbose_name='Creature Type',
 		choices=CTYPE_CHOICES)
 	max_hp = models.PositiveIntegerField(verbose_name='Maximum Hit Points')
 	current_hp = models.PositiveIntegerField(verbose_name='Current Hit Points')
-	resistances = models.TextField()
-		# populated with json string
-		# format: [<resname>, <resname>, ...]
+	# resistances = models.TextField() # VIOLATES 3RD NORMAL
+	# 	# populated with json string
+	# 	# format: [<resname>, <resname>, ...]
 	size = models.CharField(verbose_name='Size', max_length=3,
 		choices=CREATURESIZE_CHOICES)
 	str_score = models.PositiveIntegerField(verbose_name='Strength Score')
@@ -345,10 +345,10 @@ class Creature(models.Model):
 	int_score = models.PositiveIntegerField(verbose_name='Intelligence Score')
 	wis_score = models.PositiveIntegerField(verbose_name='Wisdom Score')
 	cha_score = models.PositiveIntegerField(verbose_name='Charisma Score')
-	override_prof = models.PositiveIntegerField(verbose_name='Override ' +\
-		'Proficiency Bonus', blank=True,
-		help_text="Leave this blank to use the proficiency bonus associated" +\
-			" with the creature's level.")
+	override_prof = models.PositiveIntegerField(
+		verbose_name='Override Proficiency Bonus', blank=True, null=True,
+		help_text=("Leave this blank to use the proficiency bonus associated "
+			"with the creature's level."))
 	last_updated = models.DateTimeField(auto_now=True,
 		verbose_name='Last Updated')
 
@@ -500,6 +500,22 @@ class CreatureInstance(models.Model):
 
 	def __str__(self):
 		return self.creature_id.name
+
+
+class Resistance(models.Model):
+	"""
+	Defines a table to list available resistances that a creature can have.
+	Resistances are defined only by their names.
+	"""
+
+	name = models.CharField(max_length=30, verbose_name='Resistance Name')
+
+	class Meta:
+		db_table = 'resistance'
+		verbose_name_plural = 'Resistances'
+
+	def __str__(self):
+		return self.name
 
 
 # mapping tables
@@ -950,7 +966,23 @@ class CreatureToolProficiency(models.Model):
 		verbose_name_plural = 'Creatures-Tool Proficiencies'
 
 	def __str__(self):
-		return self.creature.name + ' - ' + self.tool.name
+		return f'{self.creature.name} - {self.tool.name}'
+
+
+class CreatureResistance(models.Model):
+	"""
+	Relates creatures and resistances.
+	"""
+
+	creature = models.ForeignKey('Creature', on_delete=models.CASCADE)
+	resistance = models.ForeignKey('Resistance', on_delete=models.PROTECT)
+
+	class Meta:
+		db_table = 'creature_resistance'
+		verbose_name_plural = 'Creature-Resistance'
+
+	def __str__(self):
+		return f'{self.creature.name} - {self.resistance.name}'
 
 
 class NoteCampaign(models.Model):
