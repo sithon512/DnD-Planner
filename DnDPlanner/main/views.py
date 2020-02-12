@@ -8,14 +8,19 @@ another view).
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+from django.contrib.auth import (
+	login,
+	logout,
+	authenticate,
+	update_session_auth_hash
+)
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from urllib.parse import quote as to_url
 from django.http import HttpResponse, JsonResponse
 from .aux_lib import Creature, sort_init_order
 from .forms import QuickTrkrForm
-from .models import Campaign, UserCampaign
+from .models import Campaign, UserCampaign, UserCreature, UserItem
 
 # Create your views here.
 def homepage(request):
