@@ -1,0 +1,161 @@
+{% extends 'main/header.html' %}
+
+{% block style %}
+		<style type="text/css">
+			/* textarea label focus color */
+			.input-field textarea:focus + label {
+				color: white !important;
+			}
+			/* textarea label underline focus color */
+			.row .input-field textarea:focus {
+				border-bottom: 1px solid white !important;
+				box-shadow: 0 1px 0 0 white !important
+			}
+
+			/* label focus color */
+			.input-field input:focus + label {
+				color: white !important;
+			}
+			/* label underline focus color */
+			.row .input-field input:focus {
+				border-bottom: 1px solid white !important;
+				box-shadow: 0 1px 0 0 white !important
+			}
+			/* invalid color */
+			.input-field input[type=text].invalid {
+		    border-bottom: 1px solid #C62828 !important;
+		    box-shadow: 0 1px 0 0 #C62828 !important;
+		  }
+		</style>
+{% endblock %}
+
+{% block content %}
+		<div class="row white-text" style="overflow:auto;">
+			<div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+				<h3 align="center">Create Creature</h3>
+				<form method="POST">
+					{% csrf_token %}
+
+					<!-- name -->
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" name="creature-name" id="creature-name" data-length="50" style="color:white" required value="">
+							<label for="creature-name">Creature Name</label>
+						</div>
+					</div>
+
+					<!-- description -->
+					<div class="row">
+						<div class="input-field col s12">
+							<textarea id="creature-description" name="creature-description" class="materialize-textarea" style="color:white" required></textarea>
+							<label for="creature-description">Creature Description</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<!-- level -->
+						<div class="input-field col s6">
+							<input type="number" name="creature-level" style="color:white" required value="1" min="1" max="30">
+							<label for="creature-level">Level/CR</label>
+						</div>
+
+						<!-- max HP -->
+						<div class="input-field col s6">
+							<input type="number" name="creature-hp" style="color:white" required value="1" min="1">
+							<label for="creature-hp">Maximum HP</label>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<!-- creature type -->
+						<div class="input-field col s6">
+							<select class="browser-default" style="background-color:#404040;color:white">
+								<option value="" disabled selected>Creature Type</option>
+								<!-- options -->
+							</select>
+						</div>
+
+						<!-- size -->
+						<div class="input-field col s6">
+							<select class="browser-default" style="background-color:#404040;color:white">
+								<option value="" disabled selected>Creature Size</option>
+								<!-- options -->
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<!-- STR -->
+						<div class="input-field col s2">
+							<input type="number" name="creature-STR" style="color:white" required value="10" min="1" max="30">
+							<label for="creature-STR">STR</label>
+						</div>
+
+						<!-- DEX -->
+						<div class="input-field col s2">
+							<input type="number" name="creature-DEX" style="color:white" required value="10" min="1" max="30">
+							<label for="creature-DEX">DEX</label>
+						</div>
+
+						<!-- CON -->
+						<div class="input-field col s2">
+							<input type="number" name="creature-CON" style="color:white" required value="10" min="1" max="30">
+							<label for="creature-CON">CON</label>
+						</div>
+
+						<!-- INT -->
+						<div class="input-field col s2">
+							<input type="number" name="creature-INT" style="color:white" required value="10" min="1" max="30">
+							<label for="creature-INT">INT</label>
+						</div>
+
+						<!-- WIS -->
+						<div class="input-field col s2">
+							<input type="number" name="creature-WIS" style="color:white" required value="10" min="1" max="30">
+							<label for="creature-WIS">WIS</label>
+						</div>
+
+						<!-- CHA -->
+						<div class="input-field col s2">
+							<input type="number" name="creature-CHA" style="color:white" required value="10" min="1" max="30">
+							<label for="creature-CHA">CHA</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<!-- override proficiency -->
+						<div class="input-field col s4">
+							<input type="number" name="creature-prof" style="color:white" value="2" min="2" max="9">
+						</div>
+						
+						<!-- resistances -->
+						<div class="input-field col s8">
+							<select multiple style="background-color:#404040;color:white">
+								<option style="color:white" selected disabled>Resistances</option>
+							</select>
+						</div>
+					</div>
+
+
+					<!-- buttons -->
+					<div class="row">
+						<div class="col s6 m6 l6" align="center">
+							<a href="/planner-home" class="btn black waves-red waves-effect"><strong><span style="color:#C62828">back</span></strong></a>
+						</div>
+						<div class="col s6 m6 l6" align="center">
+							<button class="btn waves-effect waves-red" type="submit" style="background-color:#C62828"><strong><span style="color:black">create</span></strong></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+{% endblock %}
+
+{% block javascript %}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('input#creature-name').characterCounter();
+			});
+		</script>
+{% endblock %}
