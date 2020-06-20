@@ -77,6 +77,9 @@
 							<select class="browser-default" style="background-color:#404040;color:white">
 								<option value="" disabled selected>Creature Type</option>
 								<!-- options -->
+								{% for type in creature_types %}
+								<option value="{{type}}">{{type}}</option>
+								{% endfor %}
 							</select>
 						</div>
 
@@ -85,6 +88,9 @@
 							<select class="browser-default" style="background-color:#404040;color:white">
 								<option value="" disabled selected>Creature Size</option>
 								<!-- options -->
+								{% for size in creature_sizes %}
+								<option value="{{size}}">{{size}}</option>
+								{% endfor %}
 							</select>
 						</div>
 					</div>
@@ -137,11 +143,13 @@
 						<!-- resistances -->
 						<div class="input-field col s8 select-white-text">
 							<select multiple style="background-color:#404040;color:white">
-								<option style="color:white" selected disabled>Resistances</option>
+								<option selected disabled>Resistances</option>
+								{% for resistance in resistances %}
+								<option value="{{resistance}}">{{resistance}}</option>
+								{% endfor %}
 							</select>
 						</div>
 					</div>
-
 
 					<!-- buttons -->
 					<div class="row">
