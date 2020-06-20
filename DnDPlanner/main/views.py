@@ -285,6 +285,19 @@ def create_campaign(request):
 		context
 	)
 
+@login_required
+def create_creature(request):
+	"""
+
+	"""
+
+	context = {}
+
+	return render(
+		request,
+		'main/create-creature.html',
+		context
+	)
 
 # ajax views
 

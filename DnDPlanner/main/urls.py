@@ -19,6 +19,8 @@ urlpatterns = [
 	path('planner-home/', views.planner_home, name='planner-home'),
 	path('planner-home/new-campaign/', views.create_campaign,
 		name='create-campaign'),
+	path('planner-home/new-creature/', views.create_creature,
+		name='create-creature'),
 
 	# ajax URL's
 	path('ajax/rem-char/', views.ajax_remove_from_init_tracker),
