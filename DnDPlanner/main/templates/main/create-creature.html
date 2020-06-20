@@ -26,6 +26,10 @@
 		    border-bottom: 1px solid #C62828 !important;
 		    box-shadow: 0 1px 0 0 #C62828 !important;
 		  }
+
+		  .select-white-text input {
+		  	color: white;
+		  }
 		</style>
 {% endblock %}
 
@@ -127,10 +131,11 @@
 						<!-- override proficiency -->
 						<div class="input-field col s4">
 							<input type="number" name="creature-prof" style="color:white" value="2" min="2" max="9">
+							<label for="creature-prof">Creature Proficiency Bonus</label>
 						</div>
 						
 						<!-- resistances -->
-						<div class="input-field col s8">
+						<div class="input-field col s8 select-white-text">
 							<select multiple style="background-color:#404040;color:white">
 								<option style="color:white" selected disabled>Resistances</option>
 							</select>
