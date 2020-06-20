@@ -20,7 +20,15 @@ from urllib.parse import quote as to_url
 from django.http import HttpResponse, JsonResponse
 from .aux_lib import Creature, sort_init_order
 from .forms import QuickTrkrForm
-from .models import Campaign, UserCampaign, UserCreature, UserItem
+from .models import (
+	Campaign,
+	UserCampaign,
+	UserCreature,
+	UserItem,
+	CTYPE_CHOICES,
+	CREATURESIZE_CHOICES,
+	RESISTANCE_CHOICES
+)
 
 # Create your views here.
 def homepage(request):
@@ -291,7 +299,11 @@ def create_creature(request):
 
 	"""
 
-	context = {}
+	context = {
+		'creature_types': [t for _, t in CTYPE_CHOICES],
+		'creature_sizes': [s for _, s in CREATURESIZE_CHOICES],
+		'resistances': [r for _, r in RESISTANCE_CHOICES],
+	}
 
 	return render(
 		request,
